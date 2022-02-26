@@ -1,0 +1,27 @@
+@import '../../../variables'
+
+.Slider
+  position: relative
+  height: 5px
+  background: $color-bg-light
+  border-radius: 10px
+  overflow: hidden
+  flex-grow: 1
+
+.customProgress, .Slider input
+  position: absolute
+  width: 100%
+  height: 100%
+  left: 0
+  top: 0
+
+.Slider input
+  opacity: 0
+  cursor: pointer
+
+.customProgress
+  div
+    height: 100%
+    position: absolute
+    top: 0
+    //background: $color-accent
