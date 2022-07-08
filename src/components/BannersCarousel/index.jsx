@@ -1,11 +1,16 @@
 import classes from "./BannersCarousel.module.sass";
 import Button from "../UI/Button";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper';
+import {Controller, Navigation} from 'swiper';
 import 'swiper/css';
 import {BiHeart, BiDotsHorizontalRounded, BiLeftArrowAlt, BiRightArrowAlt} from "react-icons/bi";
+import {useSwiper} from "swiper/react";
+import {useRef, useState} from "react";
 
 const BannersCarousel = ({title}) => {
+
+  const navigationPrev = useRef(null)
+  const navigationNext = useRef(null)
 
   return (
    <div className={classes.BannersCarousel + " w-full"}>
@@ -14,10 +19,10 @@ const BannersCarousel = ({title}) => {
          {title}
        </p>
        <div className="slider-arrows">
-         <button>
+         <button ref={navigationPrev}>
            <BiLeftArrowAlt/>
          </button>
-         <button>
+         <button ref={navigationNext}>
            <BiRightArrowAlt/>
          </button>
        </div>
@@ -27,7 +32,14 @@ const BannersCarousel = ({title}) => {
        spaceBetween={30}
        slidesPerView={1}
        modules={[Navigation]}
-       navigation
+       navigation={{
+         prevEl: navigationPrev.current,
+         nextEl: navigationNext.current,
+       }}
+       onBeforeInit={(swiper) => {
+         swiper.params.navigation.prevEl = navigationPrev.current;
+         swiper.params.navigation.nextEl = navigationNext.current;
+       }}
      >
        <SwiperSlide>
          <div className={"pt-3 pl-10 pb-7 pr-3 bg-cover flex justify-between " + classes.slide}

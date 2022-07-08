@@ -3,7 +3,7 @@ import {authReducer} from './authReducer'
 
 import {useReducer} from "react";
 import axios from 'axios'
-import {ERROR, LOGIN, LOGOUT} from "../types";
+import {ERROR, LOADING, LOGIN, LOGOUT} from "../types";
 import {errors} from "../../errors";
 
 
@@ -11,7 +11,8 @@ export const AuthState = ({children}) => {
 
   const initialState = {
     token: null,
-    error: null
+    error: null,
+    loading: true
   }
 
   const [state, dispatch] = useReducer(authReducer, initialState)
@@ -56,6 +57,7 @@ export const AuthState = ({children}) => {
   }
 
    function autoLogin() {
+     //setLoading()
      const token = localStorage.getItem('token')
      if (!token) {
        logout()
@@ -95,6 +97,9 @@ export const AuthState = ({children}) => {
     error: errors[error]
   })
 
+  const setLoading = () => dispatch({
+    type: LOADING
+  })
 
   return (
     <AuthContext.Provider value={{state, auth, autoLogin, logout}}>

@@ -1,17 +1,29 @@
 import classes from "./NavbarTop.module.sass";
 import {BiLeftArrowAlt, BiRightArrowAlt} from 'react-icons/bi'
 import Search from "../Search/Search";
-import {Link} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 
 const NavbarTop = () => {
+  let navigate = useNavigate();
+
+  const navTo = (e, id) => {
+      e.preventDefault()
+      navigate(id)
+  }
+
     return (
       <div className={classes.NavbarTop}>
        <div className="flex ">
          <div className={"flex align-center text-2xl " + classes.arrows}>
-           <a href="/">
+           <a href="/"
+              onClick={(e) => {
+                navTo(e, -1)
+              }}>
              <BiLeftArrowAlt/>
            </a>
-           <a href="/">
+           <a href="/" onClick={(e) => {
+             navTo(e, 1)
+           }}>
              <BiRightArrowAlt/>
            </a>
          </div>

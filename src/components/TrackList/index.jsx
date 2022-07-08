@@ -1,29 +1,21 @@
-import {useContext, useEffect} from "react";
-
-import {TrackContext} from "../../context/track/trackContext";
-
+import {changeTrack, pause, play} from "../../store/actions/track";
 import classes from "./TrackList.module.sass";
-import { BiPlay, BiPause } from "react-icons/bi";
-import audio from '../../audio.mp3'
-import axios from "axios";
-import {AuthContext} from "../../context/auth/authContext";
-import {SongsContext} from "../../context/songs/songsContext";
+import {useDispatch, useSelector} from "react-redux";
+import TrackListItem from "./TrackListItem";
 
-const TrackList = () => {
-  const {changeTrack, track, pause, play} = useContext(TrackContext)
-
-  const {songs} = useContext(SongsContext)
-
+const TrackList = ({songs}) => {
+  const track = useSelector(state => state.track)
+  const dispatch = useDispatch()
 
   const playHandler = (idx) => {
-    if(songs[idx].id === track.id) {
+    if(songs[idx]._id === track.id) {
       if (track.isPlaying) {
-        pause()
+        dispatch(pause())
       } else {
-        play()
+        dispatch(play())
       }
     } else {
-      changeTrack(songs[idx])
+      dispatch(changeTrack(songs[idx]))
     }
   }
 
@@ -34,21 +26,7 @@ const TrackList = () => {
         {
           songs.map((obj, idx) => {
             return (
-              <li key={idx}>
-                <div className={classes.icon}>
-                  <div onClick={() => playHandler(idx)}>
-                    {
-                      (track.id === obj.id && track.isPlaying) ? <BiPause/> : <BiPlay/>
-                    }
-                  </div>
-                </div>
-                <h4 className={classes.author}>
-                  {obj.author}
-                </h4>
-                <p className={classes.name}>
-                  {obj.name}
-                </p>
-              </li>
+              <TrackListItem key={obj._id} track={track} obj={obj} onPlay={() => playHandler(idx)} />
             )
           })
         }

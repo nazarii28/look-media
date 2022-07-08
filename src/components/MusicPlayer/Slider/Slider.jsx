@@ -2,7 +2,7 @@ import classes from "./Slider.module.sass";
 import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 
-const Slider = ({progress, onChange, color, onMouseDown, onMouseUp}) => {
+const Slider = ({progress, onChange, color, onMouseDown, onMouseUp, unTouchable}) => {
   const thumbWidth = 20
 
   const [position, setPosition] = useState(0)
@@ -27,6 +27,9 @@ const Slider = ({progress, onChange, color, onMouseDown, onMouseUp}) => {
           }}/>
         </div>
         <input
+          style={{
+            zIndex: unTouchable ? '-1' : '1'
+          }}
           onMouseDown={onMouseDown}
           onMouseUp={(e) => onMouseUp(e.target.value)}
           value={position}

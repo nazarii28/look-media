@@ -5,11 +5,18 @@
   li
     padding: 15px 20px
     background: $color-bg-light
-    display: flex
-    align-items: center
     border-radius: 5px
+    .row
+      display: flex
+      align-items: center
+      &~div
+        margin-top: 20px
     &:nth-child(odd)
       background: $color-bg-dark
+    &.activeTrackItem
+      background: $color-accent
+      .name
+        color: #fff
 
 .icon
   border-radius: 50%
@@ -31,5 +38,17 @@
   color: $text-color
 
 .duration
-  color: $text-color
+  font-size: 14px
+  margin-left: 10px
+
+.currentTime
+  font-size: 12px
+  margin-right: 10px
+
+.heart
   margin-left: auto
+  font-size: 20px
+  cursor: pointer
+  color: $text-color
+  &.active
+    color: #fff

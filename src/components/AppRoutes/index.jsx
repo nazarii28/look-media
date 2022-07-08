@@ -1,23 +1,31 @@
-import {useContext, useEffect, useState} from "react";
-import {AuthContext} from "../../context/auth/authContext";
+import {useEffect} from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import Home from "../../pages/Home";
 import Auth from "../../pages/Auth";
 import Account from "../../pages/Account";
+import Author from "../../pages/Author";
 import NotFound from "../../pages/NotFound";
 import Layout from "../Layout/Layout";
 import Logout from "../../pages/Auth/Logout";
+import Favorite from "../../pages/Favorite";
+import {useDispatch, useSelector} from "react-redux";
+import {autoLogin} from "../../store/actions/auth";
+import AddSong from "../../pages/AddSong";
+import History from "../../pages/History";
+
 
 
 const AppRoutes = () => {
-  const {state, autoLogin} = useContext(AuthContext)
-  const [isAuth, setIsAuth] = useState(false)
+  const dispatch = useDispatch()
+  const {token, loading} = useSelector(state => state.auth)
+
 
   const defaultRoutes = () => {
     return (
       <Routes>
-        <Route path="/auth" element={<Auth/>} />
-        <Route path="*" element={<Navigate to="/auth" />} />
+        <Route path="/auth/*" element={<Auth/>} />
+        <Route path="/auth/" element={<Navigate to="/auth/register" />} />
+        <Route path="*" element={<Navigate to="/auth/register" />} />
       </Routes>
     )
   }
@@ -28,8 +36,12 @@ const AppRoutes = () => {
           <Route path="/" element={<Home/>} />
           <Route path="/logout" element={<Logout/>} />
           <Route path="/account" element={<Account/>} />
+          <Route path="/author/:id" element={<Author/>} />
+          <Route path="/favorite" element={<Favorite/>} />
+          <Route path="/add-song" element={<AddSong/>} />
+          <Route path="/history" element={<History/>} />
           <Route
-            path="/auth"
+            path="/auth/*"
             element={<Navigate to="/" />}
           />
 
@@ -38,20 +50,23 @@ const AppRoutes = () => {
       )
    }
 
+
   useEffect(() => {
-    autoLogin()
+    dispatch(autoLogin())
   }, [])
 
 
-  useEffect(() => {
-    setIsAuth(!!state.token)
-  }, [state.token])
 
+  if(loading) {
+    return <div>
+      loading
+    </div>
+  }
 
   return (
    <>
      {
-       isAuth ?
+       !!token ?
          <Layout>
            {authRoutes()}
          </Layout>

@@ -1,25 +1,22 @@
 import BannersCarousel from "../../components/BannersCarousel";
-import SmallCardsCarousel from "../../components/SmallCardsCarousel";
+import AuthorsCardsCarousel from "../../components/AuthorsCardsCarousel";
 import TrackList from "../../components/TrackList";
-import {useContext, useEffect, useState} from "react";
-import {SongsContext} from "../../context/songs/songsContext";
-import axios from "axios";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {getSongs} from "../../store/actions/songs";
+import {getAuthors} from "../../store/actions/authors";
+
 
 const Home = () => {
-  const {fetchSongs} = useContext(SongsContext)
-  const [authors, setAuthors] = useState([])
 
-  const fetchAuthors = async () => {
-    const response = await axios.get('http://localhost:3001/authors')
-    setAuthors(response.data)
-  }
+  const {songs} = useSelector(state => state.songs)
+  const {authors} = useSelector(state => state.authors)
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    fetchSongs()
-    fetchAuthors()
+    dispatch(getSongs())
+    dispatch(getAuthors())
   }, [])
-
-
 
     return (
       <div className="pt-2 pl-10 pr-6">
@@ -29,10 +26,10 @@ const Home = () => {
         <div className="flex">
           <div className="lg:w-2/5 w-full">
             <BannersCarousel title="new releases 💥"/>
-            <TrackList/>
+            <TrackList songs={songs}/>
           </div>
           <div className="lg:w-3/5 w-full pl-10">
-            <SmallCardsCarousel slides={authors} title="SUNDAY FUN DAY" />
+            <AuthorsCardsCarousel slides={authors} title="SUNDAY FUN DAY" />
           </div>
         </div>
       </div>

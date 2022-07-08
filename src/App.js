@@ -1,26 +1,15 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import {useContext, useEffect} from "react";
-
-import Layout from "./components/Layout/Layout";
-import Home from './pages/Home/'
-import Auth from "./pages/Auth";
-
-import {AuthContext} from "./context/auth/authContext";
-import {TrackState} from "./context/track/TrackState";
-import {AuthState} from "./context/auth/AuthState";
+import {BrowserRouter as Router} from 'react-router-dom'
 import AppRoutes from "./components/AppRoutes";
-import SongsState from "./context/songs/SongsState";
+import {Provider} from "react-redux";
+import store from './store'
+
 
 function App() {
   return (
     <Router>
-      <AuthState>
-       <SongsState>
-         <TrackState>
-           <AppRoutes/>
-         </TrackState>
-       </SongsState>
-      </AuthState>
+     <Provider store={store}>
+       <AppRoutes/>
+     </Provider>
     </Router>
   );
 }

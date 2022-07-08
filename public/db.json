@@ -1346,7 +1346,7 @@
   }
 ],
   "authors": [
-    {"id":  1, "title": "Justin Bieber", "image":  "https://i.scdn.co/image/ab67616d0000b27335ca35166aba974dd2dd29a2", "description":  "lorem", "followers":  "1000000"},
+    {"id":  1, "title": "Justin Bieber", "image":  "https://images.unsplash.com/photo-1521817013964-d07840452b92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80", "description":  "lorem", "followers":  "1000000"},
     {"id":  2, "title": "Taylor Swift", "image":  "https://i.scdn.co/image/ab67616d0000b27335ca35166aba974dd2dd29a2", "description":  "lorem", "followers":  "1000000"},
     {"id":  3, "title": "Alan Walker", "image":  "https://i.scdn.co/image/ab67616d0000b27335ca35166aba974dd2dd29a2", "description":  "lorem", "followers":  "1000000"},
     {"id":  4, "title": "Marshmello", "image":  "https://i.scdn.co/image/ab67616d0000b27335ca35166aba974dd2dd29a2", "description":  "lorem", "followers":  "1000000"},

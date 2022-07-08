@@ -39,11 +39,27 @@ const SongsState = ({children}) => {
      }
   }
 
+  const fetchSongsById = async (ids) => {
+    const params = ids.join('&id=')
+
+    try {
+      const response = await axios.get(`http://localhost:3001/songs?id=${params}`, {
+        params: {
+          _page: state.page,
+          _limit: state.limit
+        }
+      })
+     return response.data
+    } catch (e) {
+
+    }
+  }
+
 
   const {songs} = state
 
   return (
-    <SongsContext.Provider value={{songs, fetchSongs}}>
+    <SongsContext.Provider value={{songs, fetchSongs, fetchSongsById}}>
       {children}
     </SongsContext.Provider>
   );

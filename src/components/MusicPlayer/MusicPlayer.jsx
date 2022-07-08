@@ -1,40 +1,37 @@
-import {useEffect, useRef, useState, useContext, useCallback} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import Slider from "./Slider/Slider";
-import {TrackContext} from "../../context/track/trackContext";
 import secondsToHms from '../../utils/secondsToHms'
 
 import {
-  BiPlay,
+  BiListUl,
   BiPause,
-  BiVolumeFull,
-  BiVolumeMute,
-  BiVolumeLow,
-  BiSkipPrevious,
-  BiSkipNext,
+  BiPlay,
   BiRepeat,
   BiShuffle,
-  BiListUl,
+  BiSkipNext,
+  BiSkipPrevious,
+  BiVolumeFull,
+  BiVolumeLow,
+  BiVolumeMute,
   BiX
 } from "react-icons/bi";
-import audio from '../../audio.mp3'
 import classes from "./MusicPlayer.module.sass";
 import classNames from "classnames";
-
-
-
-
+import {useDispatch, useSelector} from "react-redux";
+import {close, pause, play, setCurrentTime, setDuration, setProgress} from '../../store/actions/track'
+import {addSongToHistory} from "../../store/actions/history";
 
 
 const MusicPlayer = () => {
-  const [progress, setProgress] = useState(0)
-  const [duration, setDuration] = useState(1)
-  const [currentTime, setCurrentTime] = useState(0)
   const [volume, setVolume] = useState(20)
   const [isMouseDown, setIsMouseDown] = useState(false)
   const [repeat, setRepeat] = useState(false)
 
-  const {track, play, pause, close} = useContext(TrackContext)
+
+  const dispatch = useDispatch()
+  const track = useSelector(state => state.track)
+
 
   let lastVolume = 0
   const audioRef = useRef()
@@ -42,13 +39,11 @@ const MusicPlayer = () => {
 
   const playTrack = () => {
     if(!track.isPlaying) {
-      play()
+      dispatch(play())
     } else {
-      pause()
+      dispatch(pause())
     }
   }
-
-
 
   useEffect(() => {
     if (audioRef.current) {
@@ -64,33 +59,36 @@ const MusicPlayer = () => {
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.currentTime = 0
-      setCurrentTime(0)
+      dispatch(setCurrentTime(0))
       audioRef.current.play()
+    }
+    if (track.id) {
+      dispatch(addSongToHistory(track))
     }
   }, [track.id])
 
   const onChangeSlider = (value) => {
-    setProgress(value)
+    dispatch(setProgress(value))
   }
 
   const onTimeUpdate = (e) => {
     if(!isMouseDown) {
-      setCurrentTime(e.currentTarget.currentTime.toFixed(2))
+      dispatch(setCurrentTime(e.currentTarget.currentTime.toFixed(2)))
     }
   }
 
   const onMouseUp = (value) => {
-    audioRef.current.currentTime = (duration / 100) * value
+    audioRef.current.currentTime = (track.duration / 100) * value
     setIsMouseDown(false)
   }
 
   const endedHandler = () => {
     if(repeat) {
       audioRef.current.currentTime = 0
-      setCurrentTime(0)
+      dispatch(setCurrentTime(0))
       audioRef.current.play()
     } else {
-      pause()
+      dispatch(pause())
     }
   }
 
@@ -104,9 +102,9 @@ const MusicPlayer = () => {
   }
 
   useEffect(() => {
-    const percent = currentTime / duration * 100
-    setProgress(percent.toFixed(2))
-  }, [currentTime])
+    const percent = track.currentTime / track.duration * 100
+    dispatch(setProgress(percent.toFixed(2)))
+  }, [track.currentTime])
 
 
   const onChangeVolume = (value) => {
@@ -115,11 +113,11 @@ const MusicPlayer = () => {
   }
 
   const closePlayer = () => {
-    close()
+    dispatch(close())
   }
 
   const audioLoadedHandler = (e) => {
-    setDuration(e.currentTarget.duration.toFixed(2))
+    dispatch(setDuration(e.currentTarget.duration.toFixed(2)))
   }
 
   if (!track.showPlayer) return null
@@ -132,7 +130,7 @@ const MusicPlayer = () => {
         <div className="w-1/2">
           <div className={classes.meta}>
             <img
-              src={track.links.images[0].url}
+              src={track.image}
               alt=""/>
             <div>
               <div className="flex items-center">
@@ -144,7 +142,7 @@ const MusicPlayer = () => {
                 </p>
               </div>
               <p className={classes.author}>
-                {track.author}
+                {track.author[0].name}
               </p>
             </div>
           </div>
@@ -192,16 +190,16 @@ const MusicPlayer = () => {
         </div>
         <div className="w-1/2 flex items-center justify-between">
           <div className={classes.time}>
-            {secondsToHms(currentTime)}
+            {secondsToHms(track.currentTime)}
           </div>
           <Slider
             color="#18CBA4"
-            progress={progress}
+            progress={track.progress}
             onMouseDown={() => setIsMouseDown(true)}
             onMouseUp={onMouseUp}
             onChange={onChangeSlider}/>
           <div className={classes.time}>
-            {secondsToHms(duration)}
+            {secondsToHms(track.duration)}
           </div>
           <audio
             ref={audioRef}

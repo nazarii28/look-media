@@ -1,12 +1,14 @@
 import React, {useContext, useEffect} from 'react';
-import {AuthContext} from "../../context/auth/authContext";
 import {Navigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {logout} from "../../store/actions/auth";
 
 const Logout = () => {
-  const {logout} = useContext(AuthContext)
+  const dispatch = useDispatch()
+
 
   useEffect(() => {
-    logout()
+    dispatch(logout())
   }, [])
 
   return (

@@ -1,8 +1,11 @@
 import classes from "./Sidebar.module.sass";
 import {BiHome, BiMusic, BiFilm, BiUser, BiRepost, BiHeart, BiDuplicate, BiIdCard, BiPlusCircle} from 'react-icons/bi'
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 const Sidebar = () => {
+  const {firstName, email} = useSelector(state => state.auth)
+
   return (
     <div className={classes.Sidebar}>
       <NavLink to="/account" className={'flex items-center ' + classes.SidebarBlock}>
@@ -11,10 +14,10 @@ const Sidebar = () => {
         </div>
         <div>
           <span className={'block'}>
-            Alexis
+            {firstName}
           </span>
           <span className={'block text-xs'}>
-            Sundress
+            {email}
           </span>
         </div>
       </NavLink>
@@ -34,12 +37,6 @@ const Sidebar = () => {
               Popular
             </a>
           </li>
-          <li>
-            <a href="/">
-              <BiFilm/>
-              Films
-            </a>
-          </li>
         </ul>
       </div>
       <div className={classes.SidebarBlock}>
@@ -48,22 +45,16 @@ const Sidebar = () => {
         </h3>
         <ul className={classes.navigation}>
           <li>
-            <a href="/">
-              <BiUser/>
-              Made For You
-            </a>
-          </li>
-          <li>
-            <a href="/">
+            <NavLink to="/history" className={({ isActive }) => (isActive ? classes.navigationActive : '')}>
               <BiRepost/>
               History
-            </a>
+            </NavLink>
           </li>
           <li>
-            <a href="/">
+            <NavLink to="/favorite" className={({ isActive }) => (isActive ? classes.navigationActive : '')}>
               <BiHeart/>
               Favorite
-            </a>
+            </NavLink>
           </li>
           <li>
             <a href="/">
@@ -79,35 +70,13 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <div className={classes.SidebarBlock}>
-        <h3>
-          Playlist
-        </h3>
-        <ul className={classes.navigation}>
-          <li>
-            <a href="/">
-              Made For You
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              Mint Account
-            </a>
-          </li>
-          <li>
-            <a href="/">
-              Spinin recording
-            </a>
-          </li>
-        </ul>
-      </div>
       <div className="pt-3">
         <ul className={classes.navigation}>
           <li>
-            <a href="/">
+            <NavLink to="/add-song" className={({ isActive }) => (isActive ? classes.navigationActive : '')}>
               <BiPlusCircle/>
-              New playlist
-            </a>
+              Add Song
+            </NavLink>
           </li>
         </ul>
       </div>

@@ -47,7 +47,7 @@ const formFields = [
     },
 ]
 
-const RegisterForm = ({onSubmit}) => {
+const RegisterForm = ({onSubmit, onGoogleSubmit}) => {
 
     const formik = useFormik({
         initialValues: {
@@ -83,6 +83,7 @@ const RegisterForm = ({onSubmit}) => {
                   })
               }
               <Button className={'w-full mt-6'} type="submit">Register</Button>
+              <Button className={'w-full mt-6'} onClick={onGoogleSubmit}>Register with Google</Button>
           </form>
       </div>
     );
