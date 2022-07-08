@@ -44,7 +44,7 @@ const TrackListItem = ({track, obj, onPlay}) => {
          </div>
        </div>
        <h4 className={classes.author}>
-         {obj.author[0].name}
+         {obj.author.name}
        </h4>
        <p className={classes.name}>
          {obj.name}

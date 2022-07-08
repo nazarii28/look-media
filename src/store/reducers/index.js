@@ -5,6 +5,7 @@ import {authReducer} from "./auth";
 import {trackReducer} from "./track";
 import {authorsReducer} from "./authors";
 import {historyReducer} from "./historyReducer";
+import {albumsReducer} from "./albums";
 
 export const rootReducer = combineReducers({
   songs: songsReducer,
@@ -12,5 +13,6 @@ export const rootReducer = combineReducers({
   auth: authReducer,
   track: trackReducer,
   authors: authorsReducer,
-  history: historyReducer
+  history: historyReducer,
+  albums: albumsReducer,
 })

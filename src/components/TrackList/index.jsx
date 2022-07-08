@@ -19,7 +19,6 @@ const TrackList = ({songs}) => {
     }
   }
 
-
   return (
     <div className={classes.TrackList}>
       <ul>

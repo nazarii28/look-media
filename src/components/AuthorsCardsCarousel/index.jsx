@@ -15,7 +15,7 @@ const AuthorsCardsCarousel = ({title, slides}) => {
   }
 
   return (
-    <div className={classes.SmallCardsCarousel}>
+    <div>
       <div className="flex justify-between items-center">
         <p className="uppercase opacity-75 text-sm">
           {title}

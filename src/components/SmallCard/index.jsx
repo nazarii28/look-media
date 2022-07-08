@@ -32,7 +32,7 @@ const SmallCard = ({ onClick, author}) => {
         ><FaEye/></button>
       </div>
       <h3 className="text-xl mt-5">
-        {author.title}
+        {author.name}
       </h3>
       <p className="text-sm my-3">
         {author.description.slice(0, 50)} ...

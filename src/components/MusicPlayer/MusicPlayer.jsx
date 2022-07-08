@@ -137,12 +137,15 @@ const MusicPlayer = () => {
                 <h3>
                   {track.name}
                 </h3>
+                {track.album &&
                 <p>
-                  - album
+                  {track.album.name}
                 </p>
+                }
+
               </div>
               <p className={classes.author}>
-                {track.author[0].name}
+                {track.author.name}
               </p>
             </div>
           </div>

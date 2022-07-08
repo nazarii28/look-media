@@ -20,7 +20,8 @@ export const trackReducer = (state = initialState, action) => {
         ...action.payload,
         id: action.payload._id,
         isPlaying: true,
-        showPlayer: true
+        showPlayer: true,
+        album: action.payload.album || null
       }
     case PLAY:
       return {
@@ -40,6 +41,7 @@ export const trackReducer = (state = initialState, action) => {
         isPlaying: false,
         url: '',
         showPlayer: false,
+        album: null
       }
     case SET_DURATION:
       return {
