@@ -1,6 +1,5 @@
-import axios from "axios";
 import {AUTH_ERROR, AUTH_LOADING, LOGIN, LOGOUT} from "../types";
-import {errors} from "../../errors";
+import {login, register, getUser as apiGetUser} from "../../api/user";
 
 export const auth = ({email, password, name}) => async dispatch => {
 
@@ -8,18 +7,14 @@ export const auth = ({email, password, name}) => async dispatch => {
 
   if(name) {
     try {
-      response = await axios.post('/api/auth/registration', {
-        email, password, firstName: name
-      })
+      response = await register({email, password, firstName: name})
     } catch (e) {
       dispatch(setError(e.response.data.message))
     }
   } else {
     try {
       dispatch(setLoading())
-      response = await axios.post('/api/auth/login', {
-        email, password,
-      })
+      response = await login({email, password})
     } catch (e) {
       dispatch(setError(e.response.data.message))
     }
@@ -47,7 +42,7 @@ export const autoLogin = () => dispatch => {
 
 export const getUser = (userId) => async dispatch => {
   dispatch(setLoading())
-  const response = await axios.get(`/api/user/${userId}`)
+  const response = await apiGetUser(userId)
   dispatch(authSuccess(response.data.user))
 }
 
