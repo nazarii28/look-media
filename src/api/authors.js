@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../axios";
 
 export const fetchAuthors = async (page = 1, limit = 10) => {
   const response = await axios.get('/api/authors')
