@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/look-media/static/css/main.72bf3975.css",
+    "main.js": "/look-media/static/js/main.7b916267.js",
+    "static/js/787.a231a2e9.chunk.js": "/look-media/static/js/787.a231a2e9.chunk.js",
+    "static/media/bruce-mars-DBGwy7s3QY0-unsplash.jpg": "/look-media/static/media/bruce-mars-DBGwy7s3QY0-unsplash.83df4b761d84f20f081c.jpg",
+    "index.html": "/look-media/index.html",
+    "main.72bf3975.css.map": "/look-media/static/css/main.72bf3975.css.map",
+    "main.7b916267.js.map": "/look-media/static/js/main.7b916267.js.map",
+    "787.a231a2e9.chunk.js.map": "/look-media/static/js/787.a231a2e9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.72bf3975.css",
+    "static/js/main.7b916267.js"
+  ]
+}
