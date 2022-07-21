@@ -1,5 +1,13 @@
-import {AUTH_ERROR, AUTH_LOADING, LOGIN, LOGOUT} from "../types";
-import {login, register, getUser as apiGetUser} from "../../api/user";
+import {
+  AUTH_ERROR,
+  AUTH_LOADING,
+  LOGIN,
+  LOGOUT,
+  UPDATE_USER_DATA,
+  UPDATE_USER_DATA_ERROR,
+  UPDATE_USER_DATA_SUCCESS
+} from "../types";
+import {login, register, getUser as apiGetUser, updateUserData} from "../../api/user";
 
 export const auth = ({email, password, name}) => async dispatch => {
 
@@ -46,6 +54,16 @@ export const getUser = (userId) => async dispatch => {
   dispatch(authSuccess(response.data.user))
 }
 
+export const updateData = (id, values) => async dispatch => {
+  dispatch(updateDataCreator())
+  try {
+    const response = await updateUserData(id, values)
+    dispatch(updateSuccess(response.data))
+  } catch (e) {
+    dispatch(updateError())
+  }
+}
+
 const authSuccess = (payload) => ({
   type: LOGIN,
   payload
@@ -68,4 +86,17 @@ const setError = (error) => ({
 
 const setLoading = () => ({
   type: AUTH_LOADING
+})
+
+const updateError = () => ({
+  type: UPDATE_USER_DATA_ERROR
+})
+
+const updateSuccess = (payload) => ({
+  type: UPDATE_USER_DATA_SUCCESS,
+  payload
+})
+
+const updateDataCreator = () => ({
+  type: UPDATE_USER_DATA
 })

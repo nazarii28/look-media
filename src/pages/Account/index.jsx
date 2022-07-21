@@ -4,22 +4,16 @@ import {BiEditAlt} from "react-icons/bi";
 import AccountSettings from "../../components/AccountSettings";
 import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {getUser} from '../../store/actions/auth'
+import {getUser, updateData} from '../../store/actions/auth'
+import Loader from "../../components/UI/Loader";
 
 const Index = () => {
 
   const user = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
-  useEffect( async () => {
-    // const response = await axios.get(`api/user/${user.userId}/favorite/songs`)
-    // console.log(response)
-  }, [])
-
   const handleSubmit = async (values) => {
-    const response = await axios.post(`api/user/${user.userId}`, {
-      values
-    })
+    dispatch(updateData(user.userId, values))
   }
 
   return (
@@ -40,7 +34,12 @@ const Index = () => {
              </div>
            </div>
          </div>
-         {user.loading ? <p>loading...</p> :
+         {user.updateLoading
+             ?
+             <div className="">
+               <Loader/>
+             </div>
+             :
            <AccountSettings user={user} onSubmit={handleSubmit} />
          }
 

@@ -1,4 +1,4 @@
-import {LOGIN, LOGOUT, AUTH_LOADING, AUTH_ERROR} from "../types";
+import {LOGIN, LOGOUT, AUTH_LOADING, AUTH_ERROR, UPDATE_USER_DATA, UPDATE_USER_DATA_SUCCESS} from "../types";
 
 const initialState = {
   token: null,
@@ -6,6 +6,7 @@ const initialState = {
   loading: true,
   firstName: null,
   email: null,
+  updateLoading: false,
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -32,6 +33,17 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
         loading: false
+      }
+    case UPDATE_USER_DATA:
+      return {
+        ...state,
+        updateLoading: true
+      }
+    case UPDATE_USER_DATA_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+        updateLoading: false,
       }
     default:
       return state
