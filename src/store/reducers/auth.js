@@ -1,4 +1,12 @@
-import {LOGIN, LOGOUT, AUTH_LOADING, AUTH_ERROR, UPDATE_USER_DATA, UPDATE_USER_DATA_SUCCESS} from "../types";
+import {
+  LOGIN,
+  LOGOUT,
+  AUTH_LOADING,
+  AUTH_ERROR,
+  UPDATE_USER_DATA,
+  UPDATE_USER_DATA_SUCCESS,
+  DELETE_USER_AVATAR_SUCCESS, UPDATE_USER_AVATAR_SUCCESS
+} from "../types";
 
 const initialState = {
   token: null,
@@ -44,6 +52,16 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         ...action.payload,
         updateLoading: false,
+      }
+    case UPDATE_USER_AVATAR_SUCCESS:
+      return {
+        ...state,
+        avatar: action.payload
+      }
+    case DELETE_USER_AVATAR_SUCCESS:
+      return {
+        ...state,
+        avatar: null
       }
     default:
       return state

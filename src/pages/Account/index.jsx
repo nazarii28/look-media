@@ -1,19 +1,28 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import classes from './Account.module.sass'
-import {BiEditAlt} from "react-icons/bi";
+import {BiEditAlt, BiTrash} from "react-icons/bi";
 import AccountSettings from "../../components/AccountSettings";
-import axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {getUser, updateData} from '../../store/actions/auth'
+import {changeAvatar, deleteAvatar, getUser, updateData} from '../../store/actions/auth'
 import Loader from "../../components/UI/Loader";
+import classNames from "classnames";
+import UserIcon from '../../static/avatar.webp'
 
-const Index = () => {
+const Account = () => {
 
   const user = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
   const handleSubmit = async (values) => {
     dispatch(updateData(user.userId, values))
+  }
+
+  const uploadImage = (e) => {
+    dispatch(changeAvatar(e.target.files[0], user.userId))
+  }
+
+  const removeAvatarHandler = () => {
+    dispatch(deleteAvatar(user.userId))
   }
 
   return (
@@ -24,8 +33,15 @@ const Index = () => {
            <p className="subtitle">Personal information</p>
            <div className={classes.accountMeta}>
              <div className={classes.avatar}>
-               <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="avatar"/>
-               <span><BiEditAlt/></span>
+               <img
+                   src={Boolean(user.avatar) ? process.env.REACT_APP_BACKEND_URL + '/' + user.avatar : UserIcon}
+                   alt="avatar"/>
+               <label className={classNames(classes.editBtn, classes.imageLabel)} htmlFor="avatar"><BiEditAlt/></label>
+               {
+                 Boolean(user.avatar) &&
+                 <button onClick={removeAvatarHandler} className={classNames(classes.deleteBtn, classes.imageLabel)}><BiTrash/></button>
+               }
+               <input onChange={uploadImage} className="hidden" type="file" id="avatar" accept="image/*"/>
              </div>
              <div>
                <h2>{user.firstName} {user.lastName ? user.lastName : null}</h2>
@@ -48,4 +64,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Account;

@@ -17,3 +17,17 @@ export const updateUserData = async (id, values) => {
         values
     })
 }
+
+export const changeUserAvatar = async (image, id) => {
+    const formData = new FormData();
+    formData.append('avatar', image)
+    return await axios.post(`/api/user/${id}/update-avatar`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
+export const removeUserAvatar = async (id) => {
+    return await axios.delete(`/api/user/${id}/delete-avatar`)
+}

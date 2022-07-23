@@ -1,13 +1,21 @@
 import {
   AUTH_ERROR,
-  AUTH_LOADING,
+  AUTH_LOADING, DELETE_USER_AVATAR_SUCCESS,
   LOGIN,
-  LOGOUT,
+  LOGOUT, UPDATE_USER_AVATAR_SUCCESS,
   UPDATE_USER_DATA,
   UPDATE_USER_DATA_ERROR,
   UPDATE_USER_DATA_SUCCESS
 } from "../types";
-import {login, register, getUser as apiGetUser, updateUserData} from "../../api/user";
+import {
+  login,
+  register,
+  getUser as apiGetUser,
+  updateUserData,
+  changeUserAvatar,
+  removeUserAvatar
+} from "../../api/user";
+import {removeFavoriteAuthor} from "../../api/authors";
 
 export const auth = ({email, password, name}) => async dispatch => {
 
@@ -64,6 +72,24 @@ export const updateData = (id, values) => async dispatch => {
   }
 }
 
+export const changeAvatar = (image, id) => async dispatch => {
+  try {
+    const response = await changeUserAvatar(image, id)
+    dispatch(updateAvatarSuccess(response.data.avatar))
+  } catch (e) {
+
+  }
+}
+
+export const deleteAvatar = (id) => async dispatch => {
+  try {
+    await removeUserAvatar(id)
+    dispatch(deleteAvatarSuccess())
+  } catch (e) {
+
+  }
+}
+
 const authSuccess = (payload) => ({
   type: LOGIN,
   payload
@@ -99,4 +125,13 @@ const updateSuccess = (payload) => ({
 
 const updateDataCreator = () => ({
   type: UPDATE_USER_DATA
+})
+
+const updateAvatarSuccess = (payload) => ({
+  type: UPDATE_USER_AVATAR_SUCCESS,
+  payload
+})
+
+const deleteAvatarSuccess = () => ({
+  type: DELETE_USER_AVATAR_SUCCESS
 })

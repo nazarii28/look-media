@@ -2,15 +2,19 @@ import classes from "./Sidebar.module.sass";
 import {BiHome, BiMusic, BiFilm, BiUser, BiRepost, BiHeart, BiDuplicate, BiIdCard, BiPlusCircle} from 'react-icons/bi'
 import {NavLink} from "react-router-dom";
 import {useSelector} from "react-redux";
+import UserIcon from "../../static/avatar.webp";
 
 const Sidebar = () => {
   const {firstName, email} = useSelector(state => state.auth)
+  const {avatar} = useSelector(state => state.auth)
 
   return (
     <div className={classes.Sidebar}>
       <NavLink to="/account" className={'flex items-center ' + classes.SidebarBlock}>
         <div className={classes.avatar}>
-          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="avatar"/>
+          <img
+              src={Boolean(avatar) ? process.env.REACT_APP_BACKEND_URL + '/' + avatar : UserIcon}
+              alt="avatar"/>
         </div>
         <div>
           <span className={'block'}>
