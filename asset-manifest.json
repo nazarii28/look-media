@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/look-media/static/css/main.dbeec02e.css",
-    "main.js": "/look-media/static/js/main.1f5fec1b.js",
+    "main.js": "/look-media/static/js/main.f6b37492.js",
     "static/js/787.a231a2e9.chunk.js": "/look-media/static/js/787.a231a2e9.chunk.js",
     "static/media/bruce-mars-DBGwy7s3QY0-unsplash.jpg": "/look-media/static/media/bruce-mars-DBGwy7s3QY0-unsplash.83df4b761d84f20f081c.jpg",
     "static/media/avatar.webp": "/look-media/static/media/avatar.20f28b0baab9c3286bd1.webp",
     "index.html": "/look-media/index.html",
     "main.dbeec02e.css.map": "/look-media/static/css/main.dbeec02e.css.map",
-    "main.1f5fec1b.js.map": "/look-media/static/js/main.1f5fec1b.js.map",
+    "main.f6b37492.js.map": "/look-media/static/js/main.f6b37492.js.map",
     "787.a231a2e9.chunk.js.map": "/look-media/static/js/787.a231a2e9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.dbeec02e.css",
-    "static/js/main.1f5fec1b.js"
+    "static/js/main.f6b37492.js"
   ]
 }
