@@ -7,7 +7,7 @@ import {BiHeart, BiDotsHorizontalRounded, BiLeftArrowAlt, BiRightArrowAlt} from 
 import {useSwiper} from "swiper/react";
 import {useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeTrack, pause, play} from "../../store/actions/track";
+import {changeTrack, pause, play} from "../../features/trackSlice.ts";
 
 const BannersCarousel = ({title, songs}) => {
 
@@ -60,7 +60,7 @@ const BannersCarousel = ({title, songs}) => {
      >
        {
          songs.slice(0, 2).map((item, idx) => (
-             <SwiperSlide>
+             <SwiperSlide key={item._id}>
                <div className={"pt-3 pl-10 pb-7 pr-3 bg-cover flex justify-between " + classes.slide}
                     style={{
                       backgroundImage: 'url("https://the-flow.ru/uploads/images/resize/830x0/adaptiveResize/05/82/66/41/60/ee40e9840cd7.jpg")'

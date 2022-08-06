@@ -11,9 +11,10 @@ const AlbumsList = ({albums}) => {
                 </p>
             </div>
             <div className="flex">
-                {
+                { albums &&
                     albums.map(album => (
                         <AlbumListItem
+                            key={album._id}
                             _id={album._id}
                             image={album.image}
                             name={album.name}

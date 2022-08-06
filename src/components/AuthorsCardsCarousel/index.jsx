@@ -8,45 +8,45 @@ import SmallCard from "../SmallCard";
 
 const AuthorsCardsCarousel = ({title, slides}) => {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const goToAuthorPage = (id) => {
-    navigate('/author/'+id)
-  }
+    const goToAuthorPage = (id) => {
+        navigate('/author/' + id)
+    }
 
-  return (
-    <div>
-      <div className="flex justify-between items-center">
-        <p className="uppercase opacity-75 text-sm">
-          {title}
-        </p>
-        <div className="slider-arrows">
-          <button>
-            <BiLeftArrowAlt/>
-          </button>
-          <button>
-            <BiRightArrowAlt/>
-          </button>
+    return (
+        <div>
+            <div className="flex justify-between items-center">
+                <p className="uppercase opacity-75 text-sm">
+                    {title}
+                </p>
+                <div className="slider-arrows">
+                    <button>
+                        <BiLeftArrowAlt/>
+                    </button>
+                    <button>
+                        <BiRightArrowAlt/>
+                    </button>
+                </div>
+            </div>
+            <Swiper
+                spaceBetween={30}
+                slidesPerView={4}
+                modules={[Navigation]}
+                navigation
+            >
+                {slides && slides.map((slide, idx) => {
+                    return (
+                        <SwiperSlide key={idx}>
+                            <SmallCard
+                                author={slide}
+                                onClick={() => goToAuthorPage(slide._id)}/>
+                        </SwiperSlide>
+                    )
+                })}
+            </Swiper>
         </div>
-      </div>
-      <Swiper
-        spaceBetween={30}
-        slidesPerView={4}
-        modules={[Navigation]}
-        navigation
-      >
-        {slides.map((slide, idx) => {
-          return (
-            <SwiperSlide key={idx}>
-              <SmallCard
-                        author={slide}
-                         onClick={() => goToAuthorPage(slide._id)} />
-            </SwiperSlide>
-          )
-        })}
-      </Swiper>
-    </div>
-  )
+    )
 }
 
 export default AuthorsCardsCarousel

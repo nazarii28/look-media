@@ -1,7 +1,7 @@
 import axios from "../axios";
 
-export const fetchAuthors = async (page = 1, limit = 10) => {
-  const response = await axios.get('/api/authors')
+export const fetchAuthors = async (query = '') => {
+  const response = await axios.get('/api/authors?q='+query)
   return response.data.authors
 }
 

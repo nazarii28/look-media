@@ -19,8 +19,8 @@ export const getSongsById = async (ids) => {
   }
 }
 
-export const fetchSongs = async (page = 1, limit = 10) => {
-  const response = await axios.get('/api/songs')
+export const fetchSongs = async (query = '') => {
+  const response = await axios.get('/api/songs?q='+query)
   return response.data.songs
 }
 

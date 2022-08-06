@@ -1,4 +1,4 @@
-import {changeTrack, pause, play} from "../../store/actions/track";
+import {changeTrack, pause, play} from "../../features/trackSlice.ts";
 import classes from "./TrackList.module.sass";
 import {useDispatch, useSelector} from "react-redux";
 import TrackListItem from "./TrackListItem";
@@ -22,7 +22,7 @@ const TrackList = ({songs}) => {
   return (
     <div className={classes.TrackList}>
       <ul>
-        {
+        { songs &&
           songs.map((obj, idx) => {
             return (
               <TrackListItem key={obj._id} track={track} obj={obj} onPlay={() => playHandler(idx)} />

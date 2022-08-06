@@ -2,7 +2,9 @@
 
 .Search
   display: flex
+  position: relative
   input
+    z-index: 2
     margin-right: 10px
     border-radius: 30px
     border: 1px solid $text-color
@@ -12,8 +14,31 @@
     font-size: 12px
     font-weight: 500
   button
+    z-index: 2
     background: $color-accent
     color: #fff
     border-radius: 50%
     padding: 5px 7px
+
+.resultWrap
+  position: absolute
+  z-index: 1
+  width: 110%
+  left: -5%
+  top: -10px
+  background: #000
+  color: #fff
+  font-size: 13px
+  border-radius: 30px
+  overflow: hidden
+
+.list
+  padding-top: 45px
+  li
+    padding: 10px
+    cursor: pointer
+    &:hover
+      background: #202020
+    &:not(:last-child)
+      border-bottom: 1px solid $text-color
 

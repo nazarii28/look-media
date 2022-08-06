@@ -7,14 +7,21 @@ import {getSongs} from "../../store/actions/songs";
 import {getAuthors} from "../../store/actions/authors";
 import {getAlbums} from "../../store/actions/albums";
 import AlbumsList from "../../components/AlbumsList";
+import {useGetAlbumsQuery} from "../../services/albums.ts";
+import {useGetAuthorsQuery} from "../../services/authors.ts";
+import {useGetSongsQuery} from "../../services/songs.ts";
 
 
 const Home = () => {
 
-  const {songs} = useSelector(state => state.songs)
-  const {authors} = useSelector(state => state.authors)
-  const {albums} = useSelector(state => state.albums)
+  // const {songs} = useSelector(state => state.songs)
+  // const {authors} = useSelector(state => state.authors)
+  // const {albums} = useSelector(state => state.albums)
   const dispatch = useDispatch()
+
+  const {data: albums} = useGetAlbumsQuery();
+  const {data: authors} = useGetAuthorsQuery();
+  const {data: songs, isLoading: isSongsLoading} = useGetSongsQuery();
 
   useEffect(() => {
     dispatch(getSongs())
@@ -29,12 +36,15 @@ const Home = () => {
         </h1>
         <div className="flex">
           <div className="lg:w-2/5 w-full">
-            <BannersCarousel songs={songs} title="new releases 💥"/>
-            <TrackList songs={songs}/>
+            {
+              !isSongsLoading && <BannersCarousel songs={songs?.songs} title="new releases 💥"/>
+            }
+
+            <TrackList songs={songs?.songs}/>
           </div>
           <div className="lg:w-3/5 w-full pl-10">
-            <AuthorsCardsCarousel slides={authors} title="SUNDAY FUN DAY"/>
-            <AlbumsList albums={albums}/>
+            <AuthorsCardsCarousel slides={authors?.authors} title="SUNDAY FUN DAY"/>
+            <AlbumsList albums={albums?.albums}/>
           </div>
         </div>
       </div>
