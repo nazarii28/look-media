@@ -1,22 +1,4 @@
 # Look media
 
-## 🚀 Getting Started
-
-+ Clone the repository
-```
-git clone https://github.com/nazarii28/look-media.git
-```
-+ Install Dependencies
-```
-npm install
-```
-+ Run npm start to run the project at http://localhost:3000/
-```
-npm start
-```
-
-
-
-![App screenshot](public/screen_1.png)
-![App screenshot](public/screen_2.png)
-![App screenshot](public/screen_3.png)
+Музыкальное приложение созданное с целью попрактиковаться с React, Redux, Formik, Tailwind CSS, Express js, Mongoose. Приложение активно дорабатывается.
+Потыкать можно тут https://nazarii28.github.io/look-media/
