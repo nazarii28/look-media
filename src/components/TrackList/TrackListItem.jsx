@@ -8,17 +8,21 @@ import {useDispatch, useSelector} from "react-redux";
 import {setProgress} from "../../store/actions/track";
 import secondsToHms from "../../utils/secondsToHms";
 import {pushFavoriteSong, deleteFavoriteSong} from "../../store/actions/favorite";
+import {useGetFavoriteSongsQuery} from "../../services/favorite.ts";
 
 const TrackListItem = ({track, obj, onPlay}) => {
 
   const {progress} = useSelector(state => state.track)
-  const {favoriteSongs} = useSelector(state => state.favorite)
+  // const {favoriteSongs} = useSelector(state => state.favorite)
+  const {data: favoriteSongs} = useGetFavoriteSongsQuery()
   const {userId} = useSelector(state => state.auth)
 
   const dispatch = useDispatch()
 
   const isFavorited = useMemo(() => {
-    return favoriteSongs.filter(item => item._id === obj._id).length > 0
+    if(favoriteSongs) {
+      return favoriteSongs.filter(item => item._id === obj._id).length > 0
+    }
   }, [favoriteSongs])
 
   const addFavoriteHandler = async () => {

@@ -8,8 +8,9 @@ import {useSwiper} from "swiper/react";
 import {useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {changeTrack, pause, play} from "../../features/trackSlice.ts";
+import BannerSkeleton from "./BannerSkeleton";
 
-const BannersCarousel = ({title, songs}) => {
+const BannersCarousel = ({title, songs, isLoading}) => {
 
     const navigationPrev = useRef(null)
     const navigationNext = useRef(null)
@@ -59,7 +60,10 @@ const BannersCarousel = ({title, songs}) => {
        }}
      >
        {
-         songs.slice(0, 2).map((item, idx) => (
+           isLoading ?
+               <BannerSkeleton/>
+               :
+            songs.slice(0, 2).map((item, idx) => (
              <SwiperSlide key={item._id}>
                <div className={"pt-3 pl-10 pb-7 pr-3 bg-cover flex justify-between " + classes.slide}
                     style={{
