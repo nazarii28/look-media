@@ -9,7 +9,7 @@ import Layout from "../Layout/Layout";
 import Logout from "../../pages/Auth/Logout";
 import Favorite from "../../pages/Favorite";
 import {useDispatch, useSelector} from "react-redux";
-import {autoLogin} from "../../store/actions/auth";
+import {autoLogin} from "../../features/authSlice.ts";
 import AddSong from "../../pages/AddSong";
 import History from "../../pages/History";
 import Album from "../../pages/Album";

@@ -5,10 +5,21 @@ import {configureStore} from "@reduxjs/toolkit";
 import {albumApi} from "../services/albums.ts";
 import {authorApi} from "../services/authors.ts";
 import {songApi} from "../services/songs.ts";
+import {authApi} from "../services/auth.ts";
+import {favoriteApi} from "../services/favorite.ts";
 
 const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk, albumApi.middleware, authorApi.middleware, songApi.middleware)
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware()
+            .concat(
+                thunk,
+                albumApi.middleware,
+                authorApi.middleware,
+                songApi.middleware,
+                authApi.middleware,
+                favoriteApi.middleware
+            )
 })
 
 export default store;

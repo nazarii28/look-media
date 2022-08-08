@@ -5,8 +5,10 @@ import 'swiper/css';
 import {BiLeftArrowAlt, BiRightArrowAlt} from "react-icons/bi";
 import {useNavigate} from "react-router-dom";
 import SmallCard from "../SmallCard";
+import ContentLoader from "react-content-loader";
+import AuthorCardSkeleton from "./AuthorCardSkeleton";
 
-const AuthorsCardsCarousel = ({title, slides}) => {
+const AuthorsCardsCarousel = ({title, slides, isLoading}) => {
 
     const navigate = useNavigate();
 
@@ -35,7 +37,14 @@ const AuthorsCardsCarousel = ({title, slides}) => {
                 modules={[Navigation]}
                 navigation
             >
-                {slides && slides.map((slide, idx) => {
+                {isLoading ?
+                    Array(4).fill(0).map((_, idx) => (
+                        <SwiperSlide key={idx}>
+                            <AuthorCardSkeleton/>
+                        </SwiperSlide>
+                    ))
+
+                : slides.map((slide, idx) => {
                     return (
                         <SwiperSlide key={idx}>
                             <SmallCard
