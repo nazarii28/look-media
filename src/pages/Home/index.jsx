@@ -3,9 +3,6 @@ import AuthorsCardsCarousel from "../../components/AuthorsCardsCarousel";
 import TrackList from "../../components/TrackList";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getSongs} from "../../store/actions/songs";
-import {getAuthors} from "../../store/actions/authors";
-import {getAlbums} from "../../store/actions/albums";
 import AlbumsList from "../../components/AlbumsList";
 import {useGetAlbumsQuery} from "../../services/albums.ts";
 import {useGetAuthorsQuery} from "../../services/authors.ts";
@@ -33,9 +30,9 @@ const Home = () => {
 
 
   useEffect(() => {
-    dispatch(getSongs())
-    dispatch(getAuthors())
-    dispatch(getAlbums())
+    // dispatch(getSongs())
+    // dispatch(getAuthors())
+    // dispatch(getAlbums())
   }, [])
 
     return (

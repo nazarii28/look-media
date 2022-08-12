@@ -4,7 +4,6 @@ import NavbarTop from "../NavbarTop/NavbarTop";
 import MusicPlayer from "../MusicPlayer/MusicPlayer";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getFavoriteAuthors, getFavoriteSongs} from "../../store/actions/favorite";
 
 const Layout = ({children}) => {
   const {userId} = useSelector(state => state.auth)
@@ -12,8 +11,8 @@ const Layout = ({children}) => {
   const dispatch = useDispatch()
 
   useEffect(async () => {
-    dispatch(getFavoriteSongs(userId))
-    dispatch(getFavoriteAuthors(userId))
+    // dispatch(getFavoriteSongs(userId))
+    // dispatch(getFavoriteAuthors(userId))
   }, [])
 
   return (

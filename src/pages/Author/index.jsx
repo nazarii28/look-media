@@ -3,7 +3,6 @@ import classes from './Author.module.sass';
 import {useParams} from "react-router-dom";
 import TrackList from "../../components/TrackList";
 import {useDispatch, useSelector} from "react-redux";
-import {getAuthor, getAuthors} from "../../store/actions/authors";
 import {useGetAuthorQuery} from "../../services/authors.ts";
 
 const Author = () => {
@@ -15,7 +14,7 @@ const Author = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getAuthor(id))
+        // dispatch(getAuthor(id))
     }, [])
 
     if (isLoading) {

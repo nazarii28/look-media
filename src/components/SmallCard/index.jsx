@@ -2,24 +2,29 @@ import React, {useMemo} from 'react';
 import {FaEye} from "react-icons/fa";
 import {BiUserPlus} from "react-icons/bi";
 import classes from './SmallCard.module.sass'
-import {useDispatch, useSelector} from "react-redux";
-import {deleteFavoriteAuthor, pushFavoriteAuthor} from "../../store/actions/favorite";
+import {
+    useAddFavoriteAuthorMutation,
+    useGetFavoriteAuthorsQuery,
+    useRemoveFavoriteAuthorMutation
+} from "../../services/favorite.ts";
 
 const SmallCard = ({ onClick, author}) => {
 
-    const {favoriteAuthors} = useSelector(state => state.favorite)
-    const {userId} = useSelector(state => state.auth)
-    const dispatch = useDispatch()
+    const {data: favoriteAuthors, isLoading: isAuthorsLoading} = useGetFavoriteAuthorsQuery()
+    const [addFavoriteAuthor] = useAddFavoriteAuthorMutation()
+    const [removeFavoriteAuthor] = useRemoveFavoriteAuthorMutation()
 
     const isFollowed = useMemo(() => {
-        return favoriteAuthors.filter(item => item._id === author._id).length > 0
+        if(favoriteAuthors) {
+            return favoriteAuthors.find(item => item._id === author._id)
+        }
     }, [favoriteAuthors])
 
     const followHandler = () => {
         if (isFollowed) {
-            dispatch(deleteFavoriteAuthor(userId, author._id))
+            removeFavoriteAuthor(author._id)
         } else {
-            dispatch(pushFavoriteAuthor(userId, author))
+            addFavoriteAuthor(author._id)
         }
     }
 

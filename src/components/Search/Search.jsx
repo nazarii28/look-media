@@ -2,22 +2,23 @@ import classes from './Search.module.sass'
 import {BiSearch} from 'react-icons/bi'
 import {useEffect, useState} from "react";
 import useDebounce from "../../hooks/useDebounce";
-import {fetchAuthors} from "../../api/authors";
+import {useSearchSongsQuery} from "../../services/songs.ts";
 
 const Search = () => {
     // const [showResultList, setShowResultList] = useState(false)
     const [query, setQuery] = useState('')
     const showResultList = Boolean(query)
-    const debouncedSearchTerm = useDebounce(query, 500);
+    const debouncedSearchTerm = useDebounce(query, 500)
+    const {data, isLoading} = useSearchSongsQuery(debouncedSearchTerm)
 
     useEffect(() => {
-        const getAuthors = async () => {
-            const response = await fetchAuthors(query.trim())
-            setResultList(response)
-        }
-        if(query.trim().length >= 3) {
-            getAuthors()
-        }
+        // const getAuthors = async () => {
+        //     const response = await fetchAuthors(query.trim())
+        //     setResultList(response)
+        // }
+        // if(query.trim().length >= 3) {
+        //     // getAuthors()
+        // }
     }, [debouncedSearchTerm])
 
     const [resultList, setResultList] = useState([])
@@ -36,22 +37,26 @@ const Search = () => {
                 showResultList &&
                 <div className={classes.resultWrap}>
                     <div className={classes.list}>
+
                         {
-                            query.trim().length < 3 ?
-                                <span className='px-5 py-3'>
+                            !isLoading &&
+                            (
+                                query.trim().length < 3 ?
+                                    <span className='px-5 py-3'>
                                     Please enter at least 3 characters
                                 </span> :
-                                resultList.length > 0 ?
-                                <ul>
-                                    {
-                                        resultList.map(item => (
-                                            <li key={item._id}>{item.name}</li>
-                                        ))
-                                    }
-                                </ul> :
-                                <span className='px-5 py-3'>
-                                    Not found
-                                </span>
+                                    data.songs.length > 0 ?
+                                        <ul>
+                                            {
+                                                data.songs.map(item => (
+                                                    <li key={item._id}>{item.name}</li>
+                                                ))
+                                            }
+                                        </ul> :
+                                        <span className='px-5 py-3'>
+                                            Not found
+                                        </span>
+                            )
                         }
                     </div>
                 </div>

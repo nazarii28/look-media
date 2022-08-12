@@ -20,7 +20,6 @@ import classes from "./MusicPlayer.module.sass";
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
 import {close, pause, play, setCurrentTime, setDuration, setProgress} from '../../features/trackSlice.ts';
-import {addSongToHistory} from "../../store/actions/history";
 
 
 const MusicPlayer = () => {
@@ -63,7 +62,7 @@ const MusicPlayer = () => {
             audioRef.current.play()
         }
         if (track.id) {
-            dispatch(addSongToHistory(track))
+            // dispatch(addSongToHistory(track))
         }
     }, [track.id])
 

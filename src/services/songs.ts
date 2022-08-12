@@ -7,8 +7,18 @@ export const songApi = createApi({
     endpoints: (builder) => ({
         getSongs: builder.query({
             query: () => '/'
+        }),
+        searchSongs: builder.query({
+           query: (query) => `/?q=${query}`
+        }),
+        addSong: builder.mutation({
+            query: (body) => ({
+                url: `/`,
+                method: 'POST',
+                body: body,
+            }),
         })
     })
 })
 
-export const { useGetSongsQuery } = songApi;
+export const { useGetSongsQuery, useAddSongMutation, useSearchSongsQuery } = songApi;

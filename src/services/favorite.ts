@@ -17,11 +17,62 @@ const dynamicBaseQuery = async (args, api, extraOptions) => {
 export const favoriteApi = createApi({
     reducerPath: 'favoriteApi',
     baseQuery: dynamicBaseQuery,
+    tagTypes: ['FavoriteSong', 'FavoriteAuthor'],
     endpoints: (builder) => ({
         getFavoriteSongs: builder.query({
-            query: () => '/songs'
+            providesTags: ['FavoriteSong'],
+            query: () => ({
+                url: '/songs',
+            })
+        }),
+        addFavoriteSong: builder.mutation({
+            query: (songId) => ({
+                url: '/songs',
+                method: 'POST',
+                body: {
+                    songId
+                }
+            }),
+            invalidatesTags: ['FavoriteSong'],
+        }),
+        removeFavoriteSong: builder.mutation({
+            query: (songId) => ({
+                url: `/songs/${songId}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['FavoriteSong'],
+        }),
+        getFavoriteAuthors: builder.query({
+            providesTags: ['FavoriteAuthor'],
+            query: () => ({
+                url: '/authors',
+            })
+        }),
+        addFavoriteAuthor: builder.mutation({
+            query: (authorId) => ({
+                url: '/authors',
+                method: 'POST',
+                body: {
+                    authorId
+                }
+            }),
+            invalidatesTags: ['FavoriteAuthor'],
+        }),
+        removeFavoriteAuthor: builder.mutation({
+            query: (authorId) => ({
+                url: `/authors/${authorId}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['FavoriteAuthor'],
         })
     })
 })
 
-export const { useGetFavoriteSongsQuery } = favoriteApi;
+export const {
+        useGetFavoriteSongsQuery,
+        useAddFavoriteSongMutation,
+        useRemoveFavoriteSongMutation,
+        useGetFavoriteAuthorsQuery,
+        useAddFavoriteAuthorMutation,
+        useRemoveFavoriteAuthorMutation
+    } = favoriteApi;

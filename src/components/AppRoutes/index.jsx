@@ -6,7 +6,6 @@ import Account from "../../pages/Account";
 import Author from "../../pages/Author";
 import NotFound from "../../pages/NotFound";
 import Layout from "../Layout/Layout";
-import Logout from "../../pages/Auth/Logout";
 import Favorite from "../../pages/Favorite";
 import {useDispatch, useSelector} from "react-redux";
 import {autoLogin} from "../../features/authSlice.ts";
@@ -33,7 +32,6 @@ const AppRoutes = () => {
         return (
             <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/logout" element={<Logout/>}/>
                 <Route path="/account" element={<Account/>}/>
                 <Route path="/author/:id" element={<Author/>}/>
                 <Route path="/albums/:id" element={<Album/>}/>

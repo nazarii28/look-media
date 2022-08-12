@@ -23,7 +23,28 @@ export const authApi = createApi({
         getUser: builder.query({
             query: (id) => `/user/${id}`
         }),
+        updateUserData: builder.mutation({
+            query: ({id, ...body}) => ({
+                url: `/user/${id}`,
+                method: 'POST',
+                body: body,
+            }),
+        }),
+        updateAvatar: builder.mutation({
+            query: ({id, image}) => {
+                const formData = new FormData();
+                formData.append('avatar', image)
+                return {
+                    url: `/user/${id}/update-avatar`,
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            }
+        })
     }),
 })
 
-export const { useLoginMutation, useRegisterMutation, useGetUserQuery } = authApi
+export const { useLoginMutation, useRegisterMutation, useGetUserQuery, useUpdateUserDataMutation, useUpdateAvatarMutation } = authApi

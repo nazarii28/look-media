@@ -6,7 +6,6 @@ import Button from "../../components/UI/Button";
 import classes from './Auth.module.sass'
 import background from '../../assets/images/bruce-mars-DBGwy7s3QY0-unsplash.jpg'
 import {useDispatch, useSelector} from "react-redux";
-import {auth} from "../../store/actions/auth";
 import {Link, Route, Routes, useLocation, useParams} from "react-router-dom";
 import {useLoginMutation, useRegisterMutation} from "../../services/auth.ts";
 import {setCredentials, setError} from "../../features/authSlice.ts";
