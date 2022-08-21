@@ -1,11 +1,12 @@
 import classes from "./NavbarTop.module.sass";
 import {BiLeftArrowAlt, BiRightArrowAlt} from 'react-icons/bi'
-import Search from "../Search/Search";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import Search from "../Search";
+import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {logout} from "../../features/authSlice.ts";
+import classNames from "classnames";
 
-const NavbarTop = () => {
+const Index = () => {
     let navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -21,8 +22,8 @@ const NavbarTop = () => {
 
     return (
         <div className={classes.NavbarTop}>
-            <div className="flex ">
-                <div className={"flex align-center text-2xl " + classes.arrows}>
+            <div className="flex">
+                <div className={classNames('flex align-center text-2xl', classes.arrows)}>
                     <a href="/"
                        onClick={(e) => {
                            navTo(e, -1)
@@ -65,4 +66,4 @@ const NavbarTop = () => {
     )
 }
 
-export default NavbarTop
+export default Index

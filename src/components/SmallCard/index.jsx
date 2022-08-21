@@ -10,7 +10,7 @@ import {
 
 const SmallCard = ({ onClick, author}) => {
 
-    const {data: favoriteAuthors, isLoading: isAuthorsLoading} = useGetFavoriteAuthorsQuery()
+    const {data: favoriteAuthors} = useGetFavoriteAuthorsQuery()
     const [addFavoriteAuthor] = useAddFavoriteAuthorMutation()
     const [removeFavoriteAuthor] = useRemoveFavoriteAuthorMutation()
 
@@ -18,7 +18,7 @@ const SmallCard = ({ onClick, author}) => {
         if(favoriteAuthors) {
             return favoriteAuthors.find(item => item._id === author._id)
         }
-    }, [favoriteAuthors])
+    }, [favoriteAuthors, author._id])
 
     const followHandler = () => {
         if (isFollowed) {

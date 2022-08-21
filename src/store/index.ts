@@ -1,4 +1,4 @@
-import {createStore, compose, applyMiddleware, combineReducers} from 'redux'
+import {combineReducers} from 'redux'
 import thunk from 'redux-thunk'
 import {configureStore} from "@reduxjs/toolkit";
 import {albumApi} from "../services/albums.ts";

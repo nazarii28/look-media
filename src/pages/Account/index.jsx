@@ -1,4 +1,3 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import classes from './Account.module.sass';
 import {BiEditAlt, BiTrash} from "react-icons/bi";
 import AccountSettings from "../../components/AccountSettings";

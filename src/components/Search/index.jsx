@@ -1,27 +1,16 @@
-import classes from './Search.module.sass'
-import {BiSearch} from 'react-icons/bi'
-import {useEffect, useState} from "react";
+import {useState} from "react";
+
+import classes from './Search.module.sass';
+import {BiSearch} from 'react-icons/bi';
 import useDebounce from "../../hooks/useDebounce";
 import {useSearchSongsQuery} from "../../services/songs.ts";
 
 const Search = () => {
-    // const [showResultList, setShowResultList] = useState(false)
     const [query, setQuery] = useState('')
     const showResultList = Boolean(query)
     const debouncedSearchTerm = useDebounce(query, 500)
     const {data, isLoading} = useSearchSongsQuery(debouncedSearchTerm)
 
-    useEffect(() => {
-        // const getAuthors = async () => {
-        //     const response = await fetchAuthors(query.trim())
-        //     setResultList(response)
-        // }
-        // if(query.trim().length >= 3) {
-        //     // getAuthors()
-        // }
-    }, [debouncedSearchTerm])
-
-    const [resultList, setResultList] = useState([])
 
     return (
         <div className={classes.Search}>

@@ -56,6 +56,10 @@ html, body, #root {
   height: 20px;
 }
 
+.swiper-button-disabled {
+  opacity: .5;
+}
+
 .input {
   border: 1px solid #929292;
   background: transparent;

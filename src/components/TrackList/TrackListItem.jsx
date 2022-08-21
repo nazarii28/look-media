@@ -1,29 +1,25 @@
-import React, {useMemo, useState} from 'react';
+import {useMemo} from 'react';
 import classes from "./TrackList.module.sass";
 import {BiPause, BiPlay, BiHeart} from "react-icons/bi";
 import {FaHeart} from "react-icons/fa";
 import classNames from "classnames";
 import Slider from "../MusicPlayer/Slider/Slider";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import secondsToHms from "../../utils/secondsToHms";
 import {useGetFavoriteSongsQuery, useAddFavoriteSongMutation, useRemoveFavoriteSongMutation} from "../../services/favorite.ts";
 
 const TrackListItem = ({track, obj, onPlay}) => {
 
     const {progress} = useSelector(state => state.track)
-    // const {favoriteSongs} = useSelector(state => state.favorite)
     const {data: favoriteSongs} = useGetFavoriteSongsQuery()
     const [addFavoriteSong] = useAddFavoriteSongMutation()
     const [removeFavoriteSong] = useRemoveFavoriteSongMutation()
-    const {userId} = useSelector(state => state.auth)
-
-    const dispatch = useDispatch()
 
     const isFavorited = useMemo(() => {
         if (favoriteSongs) {
             return favoriteSongs.find(item => item._id === obj._id)
         }
-    }, [favoriteSongs])
+    }, [favoriteSongs, obj._id])
 
     const addFavoriteHandler = async () => {
         if (isFavorited) {
@@ -32,7 +28,6 @@ const TrackListItem = ({track, obj, onPlay}) => {
             addFavoriteSong(obj._id)
         }
     }
-
 
     return (
         <li className={classNames({

@@ -5,7 +5,7 @@ import Auth from "../../pages/Auth";
 import Account from "../../pages/Account";
 import Author from "../../pages/Author";
 import NotFound from "../../pages/NotFound";
-import Layout from "../Layout/Layout";
+import Layout from "../Layout";
 import Favorite from "../../pages/Favorite";
 import {useDispatch, useSelector} from "react-redux";
 import {autoLogin} from "../../features/authSlice.ts";

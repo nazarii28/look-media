@@ -1,21 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import {useState} from 'react';
 import classes from './Author.module.sass';
 import {useParams} from "react-router-dom";
 import TrackList from "../../components/TrackList";
-import {useDispatch, useSelector} from "react-redux";
 import {useGetAuthorQuery} from "../../services/authors.ts";
 
 const Author = () => {
     const [showAllDesc, setShowAllDesc] = useState(false)
-    // const {currentAuthor: author, loading} = useSelector(state => state.authors)
 
     let {id} = useParams();
     const {data, isLoading} = useGetAuthorQuery(id)
-    const dispatch = useDispatch()
 
-    useEffect(() => {
-        // dispatch(getAuthor(id))
-    }, [])
 
     if (isLoading) {
         return null
