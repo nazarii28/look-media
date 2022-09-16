@@ -7,15 +7,16 @@ import Author from "../../pages/Author";
 import NotFound from "../../pages/NotFound";
 import Layout from "../Layout";
 import Favorite from "../../pages/Favorite";
-import {useDispatch, useSelector} from "react-redux";
-import {autoLogin} from "../../features/authSlice.ts";
+import {useDispatch} from "react-redux";
+import {autoLogin} from "../../features/authSlice";
 import AddSong from "../../pages/AddSong";
 import History from "../../pages/History";
 import Album from "../../pages/Album";
+import {useAppSelector} from "../../store";
 
 const AppRoutes = () => {
-    const dispatch = useDispatch()
-    const {token, loading} = useSelector(state => state.auth)
+    const dispatch = useDispatch();
+    const {token, loading} = useAppSelector(state => state.auth);
 
 
     const defaultRoutes = () => {
@@ -50,7 +51,7 @@ const AppRoutes = () => {
 
 
     useEffect(() => {
-        dispatch(autoLogin())
+        dispatch(autoLogin());
     }, [])
 
 

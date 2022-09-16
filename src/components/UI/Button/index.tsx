@@ -1,11 +1,29 @@
 import classes from './Button.module.sass'
 import classNames from "classnames";
 import PropTypes from 'prop-types'
+import {ReactNode} from "react";
 
-const Button = ({children, outline, className, onClick, circle, type}) => {
+interface IButtonProps {
+    children: ReactNode,
+    outline?: boolean,
+    className?: string,
+    onClick?: () => void,
+    circle?: boolean,
+    type?: "button" | "submit" | "reset"
+}
+
+const Button = (props: IButtonProps) => {
+    const {
+        children,
+        outline = false,
+        className,
+        onClick,
+        circle = false,
+        type
+    } = props
+
   return (
     <button
-
       type={type ? type : 'button'}
       className={classNames(classes.btn, 'uppercase', className, {
       [classes.outline]: outline,

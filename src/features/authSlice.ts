@@ -1,12 +1,27 @@
 import {createSlice} from "@reduxjs/toolkit";
 
+interface IAuthState {
+    userId: string | null,
+    token: string | null,
+    error: string | null,
+    loading: boolean,
+    firstName: string | null,
+    lastName: string | null,
+    email: string | null,
+    city: string | null,
+    avatar: string | null,
+    company: string | null,
+    country: string | null,
+    updateLoading: boolean,
+}
 
-const initialState = {
+const initialState: IAuthState = {
     userId: null,
     token: null,
     error: null,
     loading: true,
     firstName: null,
+    avatar: null,
     lastName: null,
     email: null,
     city: null,

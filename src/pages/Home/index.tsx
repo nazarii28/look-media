@@ -2,9 +2,9 @@ import BannersCarousel from "../../components/BannersCarousel";
 import AuthorsCardsCarousel from "../../components/AuthorsCardsCarousel";
 import TrackList from "../../components/TrackList";
 import AlbumsList from "../../components/AlbumsList";
-import {useGetAlbumsQuery} from "../../services/albums.ts";
-import {useGetAuthorsQuery} from "../../services/authors.ts";
-import {useGetSongsQuery} from "../../services/songs.ts";
+import {useGetAlbumsQuery} from "../../services/albums";
+import {useGetAuthorsQuery} from "../../services/authors";
+import {useGetSongsQuery} from "../../services/songs";
 
 
 const Home = () => {
@@ -23,8 +23,10 @@ const Home = () => {
                     <TrackList isLoading={isSongsLoading} songs={songs?.songs}/>
                 </div>
                 <div className="xl:w-3/5 w-full xl:pl-10">
-                    <AuthorsCardsCarousel isLoading={isAuthorsLoading} slides={authors?.authors}
-                                          title="SUNDAY FUN DAY"/>
+                    <AuthorsCardsCarousel
+                        isLoading={isAuthorsLoading}
+                        slides={authors?.authors}
+                        title="SUNDAY FUN DAY"/>
                     <AlbumsList albums={albums?.albums}/>
                 </div>
             </div>

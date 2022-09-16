@@ -2,16 +2,16 @@ import {useState} from 'react';
 import classes from './Author.module.sass';
 import {useParams} from "react-router-dom";
 import TrackList from "../../components/TrackList";
-import {useGetAuthorQuery} from "../../services/authors.ts";
+import {useGetAuthorQuery} from "../../services/authors";
 
 const Author = () => {
     const [showAllDesc, setShowAllDesc] = useState(false)
 
-    let {id} = useParams();
-    const {data, isLoading} = useGetAuthorQuery(id)
+    const {id} = useParams();
+    const {data, isLoading} = useGetAuthorQuery(id as string)
 
 
-    if (isLoading) {
+    if (isLoading || !data) {
         return null
     }
 
@@ -43,7 +43,9 @@ const Author = () => {
             </div>
 
             <div className={classes.tracks}>
-                <TrackList songs={data.author.songs}/>
+                <TrackList
+                    isLoading={isLoading}
+                    songs={data.author.songs}/>
             </div>
 
         </div>

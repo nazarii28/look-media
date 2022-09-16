@@ -1,13 +1,17 @@
+import React from 'react'
+
 import classes from './AuthForm.module.sass'
-import React from "react";
-
-import { useFormik } from 'formik';
-import classNames from "classnames";
-
+import {FormikErrors, useFormik } from 'formik';
 import Button from "../UI/Button";
 
-const validate = values => {
-    const errors = {};
+export interface IRegisterFormValues {
+    name: string,
+    email: string,
+    password: string,
+}
+
+const validate = (values: IRegisterFormValues) => {
+    const errors: FormikErrors<IRegisterFormValues> = {};
     if (!values.name) {
         errors.name = 'Required';
     } else if (values.name.length > 15) {
@@ -47,14 +51,20 @@ const formFields = [
     },
 ]
 
-const RegisterForm = ({onSubmit, onGoogleSubmit}) => {
+const initialValues: IRegisterFormValues = {
+    name: '',
+    email: '',
+    password: '',
+}
+
+interface IRegisterFormProps {
+    onSubmit: (values: IRegisterFormValues) => void
+}
+
+const RegisterForm = ({onSubmit}: IRegisterFormProps) => {
 
     const formik = useFormik({
-        initialValues: {
-            name: '',
-            email: '',
-            password: '',
-        },
+        initialValues,
         validate,
         onSubmit: values => {
             onSubmit(values)
@@ -82,8 +92,9 @@ const RegisterForm = ({onSubmit, onGoogleSubmit}) => {
                       )
                   })
               }
-              <Button className={'w-full mt-6'} type="submit">Register</Button>
-              <Button className={'w-full mt-6'} onClick={onGoogleSubmit}>Register with Google</Button>
+              <Button
+                  className={'w-full mt-6'}
+                  type="submit">Register</Button>
           </form>
       </div>
     );

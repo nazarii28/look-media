@@ -1,7 +1,7 @@
 import {HashRouter as Router} from 'react-router-dom'
 import AppRoutes from "./components/AppRoutes";
 import {Provider} from "react-redux";
-import store from './store/index.ts'
+import store from './store/'
 
 
 function App() {

@@ -1,26 +1,26 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
-import RegisterForm from "../../components/AuthForm/RegisterForm";
-import LoginForm from "../../components/AuthForm/LoginForm";
+import RegisterForm, { IRegisterFormValues } from "../../components/AuthForm/RegisterForm";
+import LoginForm, { ILoginFormValues } from "../../components/AuthForm/LoginForm";
 import Button from "../../components/UI/Button";
 import classes from './Auth.module.sass'
 import background from '../../assets/images/bruce-mars-DBGwy7s3QY0-unsplash.jpg'
-import {useDispatch, useSelector} from "react-redux";
-import {Link, Route, Routes, useLocation, useParams} from "react-router-dom";
-import {useLoginMutation, useRegisterMutation} from "../../services/auth.ts";
-import {setCredentials, setError} from "../../features/authSlice.ts";
+import {useDispatch} from "react-redux";
+import {Link, Route, Routes} from "react-router-dom";
+import {useLoginMutation, useRegisterMutation} from "../../services/auth";
+import {setCredentials, setError} from "../../features/authSlice";
+import {useAppSelector} from "../../store";
 
 
-const Auth = (props) => {
+const Auth = () => {
 
-    const params = useParams()
     const dispatch = useDispatch()
-    const {error} = useSelector(state => state.auth)
+    const {error} = useAppSelector(state => state.auth)
 
-    const [login, {isLoading}] = useLoginMutation()
+    const [login] = useLoginMutation()
     const [register] = useRegisterMutation()
 
-    const loginHandler = async (values) => {
+    const loginHandler = async (values: ILoginFormValues) => {
         try {
             const data = await login(values).unwrap()
             dispatch(setCredentials(data))
@@ -29,7 +29,7 @@ const Auth = (props) => {
         }
     }
 
-    const registerHandler = async (values) => {
+    const registerHandler = async (values: IRegisterFormValues) => {
         try {
             const data = await register({...values, firstName: values.name}).unwrap()
             dispatch(setCredentials(data))
@@ -39,25 +39,25 @@ const Auth = (props) => {
     }
 
     useEffect(() => {
-        window.gapi.load('auth2', function () {
-            window.gapi.auth2.init({
-                client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID
-            }).then((data) => {
-                console.log(data)
-            })
-        });
+        // window.gapi.load('auth2', function () {
+        //     window.gapi.auth2.init({
+        //         client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID
+        //     }).then((data) => {
+        //         console.log(data)
+        //     })
+        // });
     }, [])
 
 
-    const signInWithGoogle = async (type) => {
-        const auth2 = window.gapi.auth2.getAuthInstance()
-
-        const user = await auth2.signIn()
-
-        if (type === 'register') {
-            const profile = user.getBasicProfile()
-        }
-    }
+    // const signInWithGoogle = async (type) => {
+        // const auth2 = window.gapi.auth2.getAuthInstance()
+        //
+        // const user = await auth2.signIn()
+        //
+        // if (type === 'register') {
+        //     const profile = user.getBasicProfile()
+        // }
+    // }
 
 
     return (
@@ -84,7 +84,6 @@ const Auth = (props) => {
                         path={'login'}
                         element={
                             <LoginForm
-                                onGoogleSubmit={() => signInWithGoogle('login')}
                                 onSubmit={loginHandler}
                             />
                         }/>
@@ -92,7 +91,6 @@ const Auth = (props) => {
                         path={'register'}
                         element={
                             <RegisterForm
-                                onGoogleSubmit={() => signInWithGoogle('register')}
                                 onSubmit={registerHandler}
                             />
                         }/>

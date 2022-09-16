@@ -24,3 +24,17 @@ export interface Author {
     name: string,
     songs?: []
 }
+
+export interface User {
+    userId: null | string
+    token: null | string
+    error: null | string
+    loading: boolean
+    firstName: null | string
+    lastName: null | string
+    email: null | string
+    city: null | string
+    company: null | string
+    country: null | string
+    updateLoading: boolean
+}

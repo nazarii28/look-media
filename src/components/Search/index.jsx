@@ -3,7 +3,7 @@ import {useState} from "react";
 import classes from './Search.module.sass';
 import {BiSearch} from 'react-icons/bi';
 import useDebounce from "../../hooks/useDebounce";
-import {useSearchSongsQuery} from "../../services/songs.ts";
+import {useSearchSongsQuery} from "../../services/songs";
 
 const Search = () => {
     const [query, setQuery] = useState('')

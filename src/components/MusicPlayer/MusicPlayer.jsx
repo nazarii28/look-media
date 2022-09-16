@@ -19,7 +19,7 @@ import {
 import classes from "./MusicPlayer.module.sass";
 import classNames from "classnames";
 import {useDispatch, useSelector} from "react-redux";
-import {close, pause, play, setCurrentTime, setDuration, setProgress} from '../../features/trackSlice.ts';
+import {close, pause, play, setCurrentTime, setDuration, setProgress} from '../../features/trackSlice';
 
 
 const MusicPlayer = () => {

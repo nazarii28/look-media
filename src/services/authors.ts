@@ -5,10 +5,10 @@ export const authorApi = createApi({
     reducerPath: 'authorApi',
     baseQuery: fetchBaseQuery({baseUrl: process.env.REACT_APP_BACKEND_URL+'/api/authors'}),
     endpoints: (builder) => ({
-        getAuthors: builder.query<Author, string>({
+        getAuthors: builder.query<{authors: Author[]}, void>({
             query: () => '/'
         }),
-        getAuthor: builder.query({
+        getAuthor: builder.query<{author: Author}, string>({
             query: (id) => `/${id}`
         })
     })

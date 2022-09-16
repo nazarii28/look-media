@@ -3,7 +3,7 @@ import {BiLeftArrowAlt, BiRightArrowAlt} from 'react-icons/bi'
 import Search from "../Search";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {logout} from "../../features/authSlice.ts";
+import {logout} from "../../features/authSlice";
 import classNames from "classnames";
 
 const Index = () => {

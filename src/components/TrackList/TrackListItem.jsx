@@ -6,7 +6,7 @@ import classNames from "classnames";
 import Slider from "../MusicPlayer/Slider/Slider";
 import {useSelector} from "react-redux";
 import secondsToHms from "../../utils/secondsToHms";
-import {useGetFavoriteSongsQuery, useAddFavoriteSongMutation, useRemoveFavoriteSongMutation} from "../../services/favorite.ts";
+import {useGetFavoriteSongsQuery, useAddFavoriteSongMutation, useRemoveFavoriteSongMutation} from "../../services/favorite";
 
 const TrackListItem = ({track, obj, onPlay}) => {
 

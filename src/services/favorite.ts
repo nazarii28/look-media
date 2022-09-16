@@ -1,11 +1,18 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import {BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError} from "@reduxjs/toolkit/query/react";
+import { RootState } from "src/store";
+import { Author, Song } from "../types";
 
 const rawBaseQuery = fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_BACKEND_URL}/api/user/`,
 })
 
-const dynamicBaseQuery = async (args, api, extraOptions) => {
-    const userId = api.getState().auth.userId
+const dynamicBaseQuery: BaseQueryFn<
+    string | FetchArgs,
+    unknown,
+    FetchBaseQueryError
+    > = async (args, api, extraOptions) => {
+    const selectUserId = (state: RootState) => state.auth.userId
+    const userId = selectUserId(api.getState() as RootState)
     const urlEnd = typeof args === 'string' ? args : args.url
     const adjustedUrl = `${userId}/favorite${urlEnd}`
     const adjustedArgs =
@@ -19,7 +26,7 @@ export const favoriteApi = createApi({
     baseQuery: dynamicBaseQuery,
     tagTypes: ['FavoriteSong', 'FavoriteAuthor'],
     endpoints: (builder) => ({
-        getFavoriteSongs: builder.query({
+        getFavoriteSongs: builder.query<Song[], void>({
             providesTags: ['FavoriteSong'],
             query: () => ({
                 url: '/songs',
@@ -42,7 +49,7 @@ export const favoriteApi = createApi({
             }),
             invalidatesTags: ['FavoriteSong'],
         }),
-        getFavoriteAuthors: builder.query({
+        getFavoriteAuthors: builder.query<Author[], void>({
             providesTags: ['FavoriteAuthor'],
             query: () => ({
                 url: '/authors',

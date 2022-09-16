@@ -1,29 +1,33 @@
+import React from 'react';
 import classes from './Account.module.sass';
 import {BiEditAlt, BiTrash} from "react-icons/bi";
-import AccountSettings from "../../components/AccountSettings";
-import {useDispatch, useSelector} from "react-redux";
+import AccountSettings, { IAccountSettingsFormValues } from "../../components/AccountSettings";
+import {useDispatch} from "react-redux";
 import Loader from "../../components/UI/Loader";
 import classNames from "classnames";
 import UserIcon from '../../static/avatar.webp'
-import {useUpdateUserDataMutation, useUpdateAvatarMutation} from "../../services/auth.ts";
-import {setUserData} from "../../features/authSlice.ts";
+import {useUpdateUserDataMutation, useUpdateAvatarMutation} from "../../services/auth";
+import {setUserData} from "../../features/authSlice";
+import {useAppSelector} from "../../store";
 
 
 const Account = () => {
 
-    const user = useSelector(state => state.auth)
+    const user = useAppSelector(state => state.auth)
     const dispatch = useDispatch()
 
     const [updateUserData, {isLoading}] = useUpdateUserDataMutation()
     const [updateAvatar] = useUpdateAvatarMutation()
 
-    const handleSubmit = async (values) => {
+    const handleSubmit = async (values: IAccountSettingsFormValues) => {
         const responseData = await updateUserData({id: user.userId, ...values}).unwrap()
         dispatch(setUserData(responseData.user))
     }
 
-    const uploadImage = (e) => {
-        updateAvatar({id: user.userId, image: e.target.files[0]})
+    const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(e.currentTarget.files) {
+            updateAvatar({id: user.userId, image: e.currentTarget.files[0]})
+        }
     }
 
     const removeAvatarHandler = () => {

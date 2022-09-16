@@ -6,7 +6,7 @@ import {
     useAddFavoriteAuthorMutation,
     useGetFavoriteAuthorsQuery,
     useRemoveFavoriteAuthorMutation
-} from "../../services/favorite.ts";
+} from "../../services/favorite";
 
 const SmallCard = ({ onClick, author}) => {
 

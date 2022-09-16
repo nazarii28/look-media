@@ -1,27 +1,28 @@
-import classes from "./SmallCardsCarousel.module.sass";
+import {useEffect, useRef, useState} from "react";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation} from 'swiper';
 import 'swiper/css';
 import {BiLeftArrowAlt, BiRightArrowAlt} from "react-icons/bi";
 import {useNavigate} from "react-router-dom";
 import SmallCard from "../SmallCard";
-import ContentLoader from "react-content-loader";
 import AuthorCardSkeleton from "./AuthorCardSkeleton";
-import {useEffect, useRef, useState} from "react";
+import { Author } from "src/types";
 
 const calculateSlidesQuantity = () => {
-    if(window.innerWidth < 1550) {
-        return 3
-    } else {
-        return 4
-    }
+    return window.innerWidth < 1550 ? 3 : 4
 }
 
-const AuthorsCardsCarousel = ({title, slides, isLoading}) => {
+interface IAuthorsCardsCarouselProps {
+    title: string,
+    slides?: Author[],
+    isLoading: boolean
+}
+
+const AuthorsCardsCarousel = ({title, slides, isLoading}: IAuthorsCardsCarouselProps) => {
 
     const navigate = useNavigate()
 
-    const goToAuthorPage = (id) => {
+    const goToAuthorPage = (id: string) => {
         navigate('/author/' + id)
     }
 
@@ -37,9 +38,7 @@ const AuthorsCardsCarousel = ({title, slides, isLoading}) => {
     }, [])
 
     return (
-        <div
-
-        >
+        <div>
             <div className="flex justify-between items-center">
                 <p className="uppercase opacity-75 text-sm">
                     {title}
@@ -61,10 +60,6 @@ const AuthorsCardsCarousel = ({title, slides, isLoading}) => {
                     prevEl: navigationPrev.current,
                     nextEl: navigationNext.current,
                 }}
-                onBeforeInit={(swiper) => {
-                    swiper.params.navigation.prevEl = navigationPrev.current;
-                    swiper.params.navigation.nextEl = navigationNext.current;
-                }}
             >
                 {isLoading ?
                     Array(4).fill(0).map((_, idx) => (
@@ -72,8 +67,7 @@ const AuthorsCardsCarousel = ({title, slides, isLoading}) => {
                             <AuthorCardSkeleton/>
                         </SwiperSlide>
                     ))
-
-                : slides.map((slide, idx) => {
+                : slides?.map((slide, idx) => {
                     return (
                         <SwiperSlide key={idx}>
                             <SmallCard

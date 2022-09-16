@@ -5,8 +5,8 @@ import Sidebar from "../Sidebar/Sidebar.jsx";
 import NavbarTop from "../NavbarTop";
 import MusicPlayer from "../MusicPlayer/MusicPlayer";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserData} from "../../features/authSlice.ts";
-import {useGetUserQuery} from "../../services/auth.ts";
+import {setUserData} from "../../features/authSlice";
+import {useGetUserQuery} from "../../services/auth";
 
 const Layout = ({children}) => {
     const {userId} = useSelector(state => state.auth)

@@ -1,8 +1,11 @@
-import React from 'react';
 import AlbumListItem from './AlbumsListItem'
+import {Album} from "../../types";
 
+interface IAlbumsListProps {
+    albums?: Album[]
+}
 
-const AlbumsList = ({albums}) => {
+const AlbumsList = ({albums}: IAlbumsListProps) => {
     return (
         <div>
             <div className="flex justify-between items-center mb-5">

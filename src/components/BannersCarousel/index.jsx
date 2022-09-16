@@ -6,7 +6,7 @@ import 'swiper/css';
 import {BiHeart, BiDotsHorizontalRounded, BiLeftArrowAlt, BiRightArrowAlt} from "react-icons/bi";
 import {useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {changeTrack, pause, play} from "../../features/trackSlice.ts";
+import {changeTrack, pause, play} from "../../features/trackSlice";
 import BannerSkeleton from "./BannerSkeleton";
 
 const BannersCarousel = ({title, songs, isLoading}) => {

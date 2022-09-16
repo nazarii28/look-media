@@ -1,13 +1,18 @@
-import classes from './AuthForm.module.sass'
 import React from "react";
+import classes from './AuthForm.module.sass'
 
-import { useFormik } from 'formik';
-import classNames from "classnames";
+import {FormikErrors, useFormik} from 'formik';
 
 import Button from "../UI/Button";
 
-const validate = values => {
-  const errors = {};
+
+export interface ILoginFormValues {
+  email: string,
+  password: string,
+}
+
+const validate = (values: ILoginFormValues) => {
+  const errors: FormikErrors<ILoginFormValues> = {};
 
   if (!values.email) {
     errors.email = 'Required';
@@ -37,13 +42,19 @@ const formFields = [
   },
 ]
 
-const LoginForm = ({onSubmit, onGoogleSubmit}) => {
+const initialValues: ILoginFormValues = {
+  email: '',
+  password: '',
+}
+
+interface ILoginFormProps {
+  onSubmit: (values: ILoginFormValues) => void
+}
+
+const LoginForm = ({onSubmit}: ILoginFormProps) => {
 
   const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
+    initialValues,
     validate,
     onSubmit: values => {
       onSubmit(values)
@@ -72,7 +83,7 @@ const LoginForm = ({onSubmit, onGoogleSubmit}) => {
           })
         }
         <Button className={'w-full mt-6'} type="submit">Login</Button>
-        <Button className={'w-full mt-6'} onClick={onGoogleSubmit}>Login with Google</Button>
+        <Button className={'w-full mt-6'}>Login with Google</Button>
       </form>
     </div>
   );
