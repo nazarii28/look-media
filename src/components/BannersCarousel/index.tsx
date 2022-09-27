@@ -1,31 +1,41 @@
-import classes from "./BannersCarousel.module.sass";
 import Button from "../UI/Button";
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Controller, Navigation} from 'swiper';
+import {Navigation} from 'swiper';
 import 'swiper/css';
 import {BiHeart, BiDotsHorizontalRounded, BiLeftArrowAlt, BiRightArrowAlt} from "react-icons/bi";
 import {useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {changeTrack, pause, play} from "../../features/trackSlice";
 import BannerSkeleton from "./BannerSkeleton";
+import classes from "./BannersCarousel.module.sass";
+import { Song } from "src/types";
+import { useAppSelector } from "src/store";
 
-const BannersCarousel = ({title, songs, isLoading}) => {
+interface IBannersCarouselProps {
+    title?: string,
+    songs?: Song[],
+    isLoading: boolean
+}
 
-    const navigationPrev = useRef(null)
-    const navigationNext = useRef(null)
+const BannersCarousel = ({title, songs, isLoading}: IBannersCarouselProps) => {
 
-    const track = useSelector(state => state.track)
-    const dispatch = useDispatch()
+    const navigationPrev = useRef(null);
+    const navigationNext = useRef(null);
 
-    const playHandler = (idx) => {
-        if (songs[idx]._id === track.id) {
-            if (track.isPlaying) {
-                dispatch(pause())
+    const track = useAppSelector(state => state.track);
+    const dispatch = useDispatch();
+
+    const playHandler = (idx: number) => {
+        if(songs) {
+            if (songs[idx]._id === track.id) {
+                if (track.isPlaying) {
+                    dispatch(pause());
+                } else {
+                    dispatch(play());
+                }
             } else {
-                dispatch(play())
+                dispatch(changeTrack(songs[idx]));
             }
-        } else {
-            dispatch(changeTrack(songs[idx]))
         }
     }
 
@@ -53,16 +63,12 @@ const BannersCarousel = ({title, songs, isLoading}) => {
                     prevEl: navigationPrev.current,
                     nextEl: navigationNext.current,
                 }}
-                onBeforeInit={(swiper) => {
-                    swiper.params.navigation.prevEl = navigationPrev.current;
-                    swiper.params.navigation.nextEl = navigationNext.current;
-                }}
             >
                 {
                     isLoading ?
                         <BannerSkeleton/>
                         :
-                        songs.slice(0, 2).map((item, idx) => (
+                        songs?.slice(0, 2).map((item, idx) => (
                             <SwiperSlide key={item._id}>
                                 <div className={"pt-3 pl-10 pb-7 pr-3 bg-cover flex justify-between " + classes.slide}
                                      style={{
@@ -104,4 +110,4 @@ const BannersCarousel = ({title, songs, isLoading}) => {
     )
 }
 
-export default BannersCarousel
+export default BannersCarousel;

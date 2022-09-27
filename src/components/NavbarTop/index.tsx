@@ -1,23 +1,23 @@
-import classes from "./NavbarTop.module.sass";
 import {BiLeftArrowAlt, BiRightArrowAlt} from 'react-icons/bi'
 import Search from "../Search";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {logout} from "../../features/authSlice";
 import classNames from "classnames";
+import classes from "./NavbarTop.module.sass";
 
-const Index = () => {
-    let navigate = useNavigate()
-    const dispatch = useDispatch()
+const NavbarTop = () => {
+    let navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const navTo = (e, id) => {
-        e.preventDefault()
-        navigate(id)
+    const navTo = (e: React.MouseEvent, id: number) => {
+        e.preventDefault();
+        navigate(id);
     }
 
-    const logoutHandler = (e) => {
-        e.preventDefault()
-        dispatch(logout())
+    const logoutHandler = (e: React.MouseEvent) => {
+        e.preventDefault();
+        dispatch(logout());
     }
 
     return (
@@ -66,4 +66,4 @@ const Index = () => {
     )
 }
 
-export default Index
+export default NavbarTop;

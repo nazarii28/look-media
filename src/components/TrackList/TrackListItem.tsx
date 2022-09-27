@@ -1,51 +1,59 @@
 import {useMemo} from 'react';
-import classes from "./TrackList.module.sass";
 import {BiPause, BiPlay, BiHeart} from "react-icons/bi";
 import {FaHeart} from "react-icons/fa";
 import classNames from "classnames";
 import Slider from "../MusicPlayer/Slider/Slider";
-import {useSelector} from "react-redux";
 import secondsToHms from "../../utils/secondsToHms";
 import {useGetFavoriteSongsQuery, useAddFavoriteSongMutation, useRemoveFavoriteSongMutation} from "../../services/favorite";
+import {useAppSelector} from "../../store";
+import { Song } from 'src/types';
+import classes from "./TrackList.module.sass";
 
-const TrackListItem = ({track, obj, onPlay}) => {
+interface ITrackListItemProps {
+    song: Song, 
+    onPlay: () => void
+}
 
-    const {progress} = useSelector(state => state.track)
-    const {data: favoriteSongs} = useGetFavoriteSongsQuery()
-    const [addFavoriteSong] = useAddFavoriteSongMutation()
-    const [removeFavoriteSong] = useRemoveFavoriteSongMutation()
+const TrackListItem = ({song, onPlay}: ITrackListItemProps) => {
+
+    const currentTrack = useAppSelector((state) => state.track);
+    const {progress} = currentTrack;
+    const {data: favoriteSongs} = useGetFavoriteSongsQuery();
+    const [addFavoriteSong] = useAddFavoriteSongMutation();
+    const [removeFavoriteSong] = useRemoveFavoriteSongMutation();
 
     const isFavorited = useMemo(() => {
         if (favoriteSongs) {
-            return favoriteSongs.find(item => item._id === obj._id)
+            return favoriteSongs.find(item => item._id === song._id);
         }
-    }, [favoriteSongs, obj._id])
+        return false;
+    }, [favoriteSongs, song._id])
 
     const addFavoriteHandler = async () => {
         if (isFavorited) {
-            removeFavoriteSong(obj._id)
+            removeFavoriteSong(song._id);
         } else {
-            addFavoriteSong(obj._id)
+            addFavoriteSong(song._id);
         }
     }
 
     return (
         <li className={classNames({
-            [classes.activeTrackItem]: track.id === obj._id
+            [classes.activeTrackItem]: currentTrack.id === song._id
         })}>
             <div className={classes.row}>
                 <div className={classes.icon}>
                     <div onClick={() => onPlay()}>
                         {
-                            (track.id === obj._id && track.isPlaying) ? <BiPause/> : <BiPlay/>
+                            (currentTrack.id === song._id && currentTrack.isPlaying) ? <BiPause/> : <BiPlay/>
                         }
                     </div>
                 </div>
                 <h4 className={classes.author}>
-                    {obj.author.name}
+                    {song.author.name}
                 </h4>
                 <p className={classes.name}>
-                    {obj.name}
+                    {song.name}
                 </p>
                 <div
                     onClick={addFavoriteHandler}
@@ -57,13 +65,13 @@ const TrackListItem = ({track, obj, onPlay}) => {
 
                 </div>
                 <p className={classes.duration}>
-                    {track.id === obj._id && secondsToHms(track.duration)}
+                    {currentTrack.id === song._id && secondsToHms(currentTrack.duration)}
                 </p>
             </div>
             {
-                track.id === obj._id &&
+                currentTrack.id === song._id &&
                 <div className={classes.row}>
-                    <p className={classes.currentTime}>{secondsToHms(track.currentTime)}</p>
+                    <p className={classes.currentTime}>{secondsToHms(currentTrack.currentTime)}</p>
                     <Slider color="#fff" progress={progress} unTouchable/>
                 </div>
             }
@@ -71,5 +79,6 @@ const TrackListItem = ({track, obj, onPlay}) => {
         </li>
     );
 };
+
 
 export default TrackListItem;

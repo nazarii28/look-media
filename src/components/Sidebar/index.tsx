@@ -1,12 +1,11 @@
-import classes from "./Sidebar.module.sass";
-import {BiHome, BiMusic, BiFilm, BiUser, BiRepost, BiHeart, BiDuplicate, BiIdCard, BiPlusCircle} from 'react-icons/bi'
+import {BiHome, BiMusic, BiRepost, BiHeart, BiDuplicate, BiIdCard, BiPlusCircle} from 'react-icons/bi'
 import {NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
 import UserIcon from "../../static/avatar.webp";
+import classes from "./Sidebar.module.sass";
+import {useAppSelector} from "../../store";
 
 const Sidebar = () => {
-  const {firstName, email} = useSelector(state => state.auth)
-  const {avatar} = useSelector(state => state.auth)
+  const {firstName, email, avatar} = useAppSelector(state => state.auth);
 
   return (
     <div className={classes.Sidebar}>
@@ -88,4 +87,4 @@ const Sidebar = () => {
   )
 }
 
-export default Sidebar
+export default Sidebar;

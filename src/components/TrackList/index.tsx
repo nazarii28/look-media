@@ -1,10 +1,10 @@
 import {changeTrack, pause, play} from "../../features/trackSlice";
 import classes from "./TrackList.module.sass";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import TrackListItem from "./TrackListItem";
 import TrackListItemSkeleton from "./TrackListItemSkeleton";
 import {Song} from "../../types";
-import {RootState} from "../../store";
+import {useAppSelector} from "../../store";
 
 interface ITrackListProps {
     songs?: Song[],
@@ -12,19 +12,19 @@ interface ITrackListProps {
 }
 
 const TrackList = ({songs, isLoading}: ITrackListProps) => {
-    const track = useSelector((state: RootState) => state.track)
-    const dispatch = useDispatch()
+    const track = useAppSelector((state) => state.track);
+    const dispatch = useDispatch();
 
     const playHandler = (idx: number) => {
         if (songs) {
             if (songs[idx]._id === track.id) {
                 if (track.isPlaying) {
-                    dispatch(pause())
+                    dispatch(pause());
                 } else {
-                    dispatch(play())
+                    dispatch(play());
                 }
             } else {
-                dispatch(changeTrack(songs[idx]))
+                dispatch(changeTrack(songs[idx]));
             }
         }
     }
@@ -39,7 +39,7 @@ const TrackList = ({songs, isLoading}: ITrackListProps) => {
                     :
                     songs?.map((obj, idx) => {
                         return (
-                            <TrackListItem key={obj._id} track={track} obj={obj} onPlay={() => playHandler(idx)}/>
+                            <TrackListItem key={obj._id} song={obj} onPlay={() => playHandler(idx)}/>
                         )
                     })
                 }
@@ -48,4 +48,4 @@ const TrackList = ({songs, isLoading}: ITrackListProps) => {
     )
 }
 
-export default TrackList
+export default TrackList;

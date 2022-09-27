@@ -9,7 +9,7 @@ export interface Album {
 export interface Song {
     _id: string,
     album: string,
-    author: string,
+    author: Author,
     image?: string,
     name: string,
     url: string,

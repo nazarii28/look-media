@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
     [songApi.reducerPath]: songApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [favoriteApi.reducerPath]: favoriteApi.reducer,
-})
+});
 
 const store = configureStore({
     reducer: rootReducer,
@@ -32,10 +32,10 @@ const store = configureStore({
                 authApi.middleware,
                 favoriteApi.middleware
             )
-})
+});
 
-export type RootState = ReturnType<typeof store.getState>
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+export type RootState = ReturnType<typeof store.getState>;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 
-export default store
+export default store;

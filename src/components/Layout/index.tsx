@@ -1,23 +1,27 @@
 import {useEffect} from "react";
-
-import classes from "./Layout.module.sass";
-import Sidebar from "../Sidebar/Sidebar.jsx";
+import Sidebar from "../Sidebar";
 import NavbarTop from "../NavbarTop";
 import MusicPlayer from "../MusicPlayer/MusicPlayer";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setUserData} from "../../features/authSlice";
 import {useGetUserQuery} from "../../services/auth";
+import classes from "./Layout.module.sass";
+import { useAppSelector } from "src/store";
 
-const Layout = ({children}) => {
-    const {userId} = useSelector(state => state.auth)
-    const {data: user} = useGetUserQuery(userId)
-    const dispatch = useDispatch()
+interface ILayoutProps {
+    children: React.ReactNode
+}
+
+const Layout = ({children}: ILayoutProps) => {
+    const {userId} = useAppSelector(state => state.auth);
+    const {data: user} = useGetUserQuery(userId);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (user) {
-            dispatch(setUserData(user.user))
+            dispatch(setUserData(user.user));
         }
-    }, [user, dispatch])
+    }, [user, dispatch]);
 
 
     return (
@@ -35,4 +39,4 @@ const Layout = ({children}) => {
     )
 }
 
-export default Layout
+export default Layout;

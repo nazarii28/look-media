@@ -19,40 +19,36 @@ const AppRoutes = () => {
     const {token, loading} = useAppSelector(state => state.auth);
 
 
-    const defaultRoutes = () => {
-        return (
-            <Routes>
-                <Route path="/auth/*" element={<Auth/>}/>
-                <Route path="/auth/" element={<Navigate to="/auth/register"/>}/>
-                <Route path="*" element={<Navigate to="/auth/register"/>}/>
-            </Routes>
-        )
-    }
+    const defaultRoutes = () => (
+        <Routes>
+            <Route path="/auth/*" element={<Auth/>}/>
+            <Route path="/auth/" element={<Navigate to="/auth/register"/>}/>
+            <Route path="*" element={<Navigate to="/auth/register"/>}/>
+        </Routes>
+    );
 
-    const authRoutes = () => {
-        return (
-            <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/account" element={<Account/>}/>
-                <Route path="/author/:id" element={<Author/>}/>
-                <Route path="/albums/:id" element={<Album/>}/>
-                <Route path="/favorite" element={<Favorite/>}/>
-                <Route path="/add-song" element={<AddSong/>}/>
-                <Route path="/history" element={<History/>}/>
-                <Route
-                    path="/auth/*"
-                    element={<Navigate to="/"/>}
-                />
+    const authRoutes = () => (
+        <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/account" element={<Account/>}/>
+            <Route path="/author/:id" element={<Author/>}/>
+            <Route path="/albums/:id" element={<Album/>}/>
+            <Route path="/favorite" element={<Favorite/>}/>
+            <Route path="/add-song" element={<AddSong/>}/>
+            <Route path="/history" element={<History/>}/>
+            <Route
+                path="/auth/*"
+                element={<Navigate to="/"/>}
+            />
 
-                <Route path="*" element={<NotFound/>}/>
-            </Routes>
-        )
-    }
+            <Route path="*" element={<NotFound/>}/>
+        </Routes>
+    );
 
 
     useEffect(() => {
         dispatch(autoLogin());
-    }, [])
+    }, []);
 
 
     if (loading) {
@@ -74,4 +70,4 @@ const AppRoutes = () => {
     )
 }
 
-export default AppRoutes
+export default AppRoutes;
